@@ -1,3 +1,4 @@
+"use client";
 import { useChat } from "@ai-sdk/react";
 import { useEffect, useRef } from "react";
 import { cssTransition, ToastContainer } from "react-toastify";

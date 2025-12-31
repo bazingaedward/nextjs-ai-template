@@ -1,3 +1,4 @@
+"use client";
 import type { UIMessage as Message } from "ai";
 import React from "react";
 import { classNames } from "~/utils/classNames";

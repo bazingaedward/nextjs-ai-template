@@ -5,22 +5,22 @@ import dynamic from "next/dynamic";
 import { classNames } from "~/utils/classNames";
 
 const Menu = dynamic(
-	() => import("~/components/sidebar/Menu.client").then((mod) => mod.Menu),
+	() => import("~/components/sidebar/Menu").then((mod) => mod.Menu),
 	{ ssr: false },
 );
 const Workbench = dynamic(
 	() =>
-		import("~/components/workbench/Workbench.client").then(
+		import("~/components/workbench/Workbench").then(
 			(mod) => mod.Workbench,
 		),
 	{ ssr: false },
 );
 const Messages = dynamic(
-	() => import("./Messages.client").then((mod) => mod.Messages),
+	() => import("./Messages").then((mod) => mod.Messages),
 	{ ssr: false },
 );
 const SendButton = dynamic(
-	() => import("./SendButton.client").then((mod) => mod.SendButton),
+	() => import("./SendButton").then((mod) => mod.SendButton),
 	{ ssr: false },
 );
 const ChatTextarea = dynamic(
@@ -28,7 +28,6 @@ const ChatTextarea = dynamic(
 	{ ssr: false },
 );
 
-import styles from "./BaseChat.module.scss";
 import { $chatStore, updateChatStore } from "~/lib/stores/chat";
 import { useStore } from "@nanostores/react";
 import { debounce } from "~/utils/debounce";
@@ -56,6 +55,7 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
 			textareaRef,
 			messageRef,
 			scrollRef,
+			showChat = true,
 			isStreaming = false,
 			messages,
 			sendMessage,
@@ -88,16 +88,15 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
 			<div
 				ref={ref}
 				className={classNames(
-					styles.BaseChat,
-					"relative flex h-full w-full overflow-hidden bg-bolt-elements-background-depth-1",
+					"relative flex h-full w-full overflow-hidden bg-bolt-elements-background-depth-1 group data-[chat-visible=false]:[--workbench-inner-width:100%] data-[chat-visible=false]:[--workbench-left:0]",
 				)}
+				data-chat-visible={showChat}
 			>
 				<Menu />
 				<div ref={scrollRef} className="flex overflow-y-auto w-full h-full">
 					<div
 						className={classNames(
-							styles.Chat,
-							"flex flex-col flex-grow min-w-[var(--chat-min-width)] h-full",
+							"flex flex-col flex-grow min-w-[var(--chat-min-width)] h-full opacity-100 transition-all duration-300 ease-in-out group-data-[chat-visible=false]:translate-x-[-50%] group-data-[chat-visible=false]:opacity-0",
 						)}
 					>
 						{!chatStarted && (

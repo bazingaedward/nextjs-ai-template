@@ -1,3 +1,4 @@
+"use client";
 import { motion, type Variants } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";

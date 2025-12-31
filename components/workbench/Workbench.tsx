@@ -1,12 +1,9 @@
+"use client";
 import { useStore } from '@nanostores/react';
 import { motion, type HTMLMotionProps, type Variants } from 'framer-motion';
 import { computed } from 'nanostores';
 import { memo, useCallback, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import {
-  type OnChangeCallback as OnEditorChange,
-  type OnScrollCallback as OnEditorScroll,
-} from '~/components/editor/codemirror/CodeMirrorEditor';
 import { IconButton } from '~/components/ui/IconButton';
 import { PanelHeaderButton } from '~/components/ui/PanelHeaderButton';
 import { Slider, type SliderOptions } from '~/components/ui/Slider';
@@ -58,7 +55,6 @@ export const Workbench = memo(({ chatStarted, isStreaming }: WorkspaceProps) => 
   const hasPreview = useStore(computed(workbenchStore.previews, (previews) => previews.length > 0));
   const showWorkbench = useStore(workbenchStore.showWorkbench);
   const selectedFile = useStore(workbenchStore.selectedFile);
-  const currentDocument = useStore(workbenchStore.currentDocument);
   const unsavedFiles = useStore(workbenchStore.unsavedFiles);
   const files = useStore(workbenchStore.files);
   const selectedView = useStore(workbenchStore.currentView);
@@ -76,14 +72,6 @@ export const Workbench = memo(({ chatStarted, isStreaming }: WorkspaceProps) => 
   useEffect(() => {
     workbenchStore.setDocuments(files);
   }, [files]);
-
-  const onEditorChange = useCallback<OnEditorChange>((update) => {
-    workbenchStore.setCurrentDocumentContent(update.content);
-  }, []);
-
-  const onEditorScroll = useCallback<OnEditorScroll>((position) => {
-    workbenchStore.setCurrentDocumentScrollPosition(position);
-  }, []);
 
   const onFileSelect = useCallback((filePath: string | undefined) => {
     workbenchStore.setSelectedFile(filePath);
@@ -147,14 +135,11 @@ export const Workbench = memo(({ chatStarted, isStreaming }: WorkspaceProps) => 
                   animate={{ x: selectedView === 'code' ? 0 : '-100%' }}
                 >
                   <EditorPanel
-                    editorDocument={currentDocument}
                     isStreaming={isStreaming}
                     selectedFile={selectedFile}
                     files={files}
                     unsavedFiles={unsavedFiles}
                     onFileSelect={onFileSelect}
-                    onEditorScroll={onEditorScroll}
-                    onEditorChange={onEditorChange}
                     onFileSave={onFileSave}
                     onFileReset={onFileReset}
                   />

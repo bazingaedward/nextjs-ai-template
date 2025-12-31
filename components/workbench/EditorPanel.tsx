@@ -1,14 +1,6 @@
 import { useStore } from '@nanostores/react';
 import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { Panel, PanelGroup, PanelResizeHandle, type ImperativePanelHandle } from 'react-resizable-panels';
-import {
-  CodeMirrorEditor,
-  type EditorDocument,
-  type EditorSettings,
-  type OnChangeCallback as OnEditorChange,
-  type OnSaveCallback as OnEditorSave,
-  type OnScrollCallback as OnEditorScroll,
-} from '~/components/editor/codemirror/CodeMirrorEditor';
 import { IconButton } from '~/components/ui/IconButton';
 import { PanelHeader } from '~/components/ui/PanelHeader';
 import { PanelHeaderButton } from '~/components/ui/PanelHeaderButton';
@@ -19,7 +11,6 @@ import { workbenchStore } from '~/lib/stores/workbench';
 import { classNames } from '~/utils/classNames';
 import { WORK_DIR } from '~/utils/constants';
 import { renderLogger } from '~/utils/logger';
-import { isMobile } from '~/utils/mobile';
 import { FileBreadcrumb } from './FileBreadcrumb';
 import { FileTree } from './FileTree';
 import { Terminal, type TerminalRef } from './terminal/Terminal';
@@ -27,13 +18,10 @@ import { Terminal, type TerminalRef } from './terminal/Terminal';
 interface EditorPanelProps {
   files?: FileMap;
   unsavedFiles?: Set<string>;
-  editorDocument?: EditorDocument;
   selectedFile?: string | undefined;
   isStreaming?: boolean;
-  onEditorChange?: OnEditorChange;
-  onEditorScroll?: OnEditorScroll;
   onFileSelect?: (value?: string) => void;
-  onFileSave?: OnEditorSave;
+  onFileSave?: () => void;
   onFileReset?: () => void;
 }
 
@@ -41,18 +29,13 @@ const MAX_TERMINALS = 3;
 const DEFAULT_TERMINAL_SIZE = 25;
 const DEFAULT_EDITOR_SIZE = 100 - DEFAULT_TERMINAL_SIZE;
 
-const editorSettings: EditorSettings = { tabSize: 2 };
-
 export const EditorPanel = memo(
   ({
     files,
     unsavedFiles,
-    editorDocument,
     selectedFile,
     isStreaming,
     onFileSelect,
-    onEditorChange,
-    onEditorScroll,
     onFileSave,
     onFileReset,
   }: EditorPanelProps) => {
@@ -69,16 +52,16 @@ export const EditorPanel = memo(
     const [terminalCount, setTerminalCount] = useState(1);
 
     const activeFileSegments = useMemo(() => {
-      if (!editorDocument) {
+      if (!selectedFile) {
         return undefined;
       }
 
-      return editorDocument.filePath.split('/');
-    }, [editorDocument]);
+      return selectedFile.split('/');
+    }, [selectedFile]);
 
     const activeFileUnsaved = useMemo(() => {
-      return editorDocument !== undefined && unsavedFiles?.has(editorDocument.filePath);
-    }, [editorDocument, unsavedFiles]);
+      return selectedFile !== undefined && unsavedFiles?.has(selectedFile);
+    }, [selectedFile, unsavedFiles]);
 
     useEffect(() => {
       const unsubscribeFromEventEmitter = shortcutEventEmitter.on('toggleTerminal', () => {
@@ -165,16 +148,7 @@ export const EditorPanel = memo(
                 )}
               </PanelHeader>
               <div className="h-full flex-1 overflow-hidden">
-                <CodeMirrorEditor
-                  theme={theme}
-                  editable={!isStreaming && editorDocument !== undefined}
-                  settings={editorSettings}
-                  doc={editorDocument}
-                  autoFocusOnDocumentChange={!isMobile()}
-                  onScroll={onEditorScroll}
-                  onChange={onEditorChange}
-                  onSave={onFileSave}
-                />
+                {/* Editor removed */}
               </div>
             </Panel>
           </PanelGroup>

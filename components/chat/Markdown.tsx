@@ -6,8 +6,6 @@ import { rehypePlugins, remarkPlugins, allowedHTMLElements } from '~/utils/markd
 import { Artifact } from './Artifact';
 import { CodeBlock } from './CodeBlock';
 
-import styles from './Markdown.module.scss';
-
 const logger = createScopedLogger('MarkdownComponent');
 
 interface MarkdownProps {
@@ -62,7 +60,7 @@ export const Markdown = memo(({ children, html = false, limitedMarkdown = false 
   return (
     <ReactMarkdown
       allowedElements={allowedHTMLElements}
-      className={styles.MarkdownContent}
+      className="text-bolt-elements-textPrimary leading-[1.6] [&>*:not(:last-child)]:mb-4 [&_.artifact]:my-[1.5em] [&_h1]:text-[2em] [&_h1]:border-b [&_h1]:border-bolt-elements-borderColor [&_h1]:pb-[0.3em] [&_h2]:text-[1.5em] [&_h2]:border-b [&_h2]:border-bolt-elements-borderColor [&_h2]:pb-[0.3em] [&_h3]:text-[1.25em] [&_h4]:text-[1em] [&_:is(h1,h2,h3,h4,h5,h6)]:mt-6 [&_:is(h1,h2,h3,h4,h5,h6)]:mb-4 [&_:is(h1,h2,h3,h4,h5,h6)]:font-semibold [&_:is(h1,h2,h3,h4,h5,h6)]:leading-[1.25]"
       components={components}
       remarkPlugins={remarkPlugins(limitedMarkdown)}
       rehypePlugins={rehypePlugins(html)}
