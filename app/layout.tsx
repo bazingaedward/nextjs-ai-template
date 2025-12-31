@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import "@unocss/reset/tailwind-compat.css";
 import "react-toastify/dist/ReactToastify.css";
 import "@xterm/xterm/css/xterm.css";
 import "./styles/index.scss";
