@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Element Tokens
+ *
+ * Hierarchy: Element Token -> (Element Token | Color Tokens) -> Primitives
+ */
+:root {
+  --header-height: 54px;
+  --chat-max-width: 37rem;
+  --chat-min-width: 640px;
+  --workbench-width: min(calc(100% - var(--chat-min-width)), 1536px);
+  --workbench-inner-width: var(--workbench-width);
+  --workbench-left: calc(100% - var(--workbench-width));
+
+  /* Toasts */
+  --toastify-color-progress-success: var(--bolt-elements-icon-success);
+  --toastify-color-progress-error: var(--bolt-elements-icon-error);
+
+  /* Terminal */
+  --bolt-elements-terminal-backgroundColor: var(--bolt-terminal-background);
+  --bolt-elements-terminal-textColor: var(--bolt-terminal-foreground);
+  --bolt-elements-terminal-cursorColor: var(--bolt-terminal-foreground);
+  --bolt-elements-terminal-selection-backgroundColor: var(--bolt-terminal-selection-background);
+  --bolt-elements-terminal-color-black: var(--bolt-terminal-black);
+  --bolt-elements-terminal-color-red: var(--bolt-terminal-red);
+  --bolt-elements-terminal-color-green: var(--bolt-terminal-green);
+  --bolt-elements-terminal-color-yellow: var(--bolt-terminal-yellow);
+  --bolt-elements-terminal-color-blue: var(--bolt-terminal-blue);
+  --bolt-elements-terminal-color-magenta: var(--bolt-terminal-magenta);
+  --bolt-elements-terminal-color-cyan: var(--bolt-terminal-cyan);
+  --bolt-elements-terminal-color-white: var(--bolt-terminal-white);
+  --bolt-elements-terminal-color-brightBlack: var(--bolt-terminal-brightBlack);
+  --bolt-elements-terminal-color-brightRed: var(--bolt-terminal-brightRed);
+  --bolt-elements-terminal-color-brightGreen: var(--bolt-terminal-brightGreen);
+  --bolt-elements-terminal-color-brightYellow: var(--bolt-terminal-brightYellow);
+  --bolt-elements-terminal-color-brightBlue: var(--bolt-terminal-brightBlue);
+  --bolt-elements-terminal-color-brightMagenta: var(--bolt-terminal-brightMagenta);
+  --bolt-elements-terminal-color-brightCyan: var(--bolt-terminal-brightCyan);
+  --bolt-elements-terminal-color-brightWhite: var(--bolt-terminal-brightWhite);
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+/* Z-Index */
+.z-logo {
+  z-index: 998;
+}
+.z-sidebar {
+  z-index: 997;
+}
+.z-port-dropdown {
+  z-index: 996;
+}
+.z-iframe-overlay {
+  z-index: 995;
+}
+.z-prompt {
+  z-index: 2;
+}
+.z-workbench {
+  z-index: 3;
+}
+.z-file-tree-breadcrumb {
+  z-index: 998;
+}
+.z-max {
+  z-index: 999;
+}
+
+/* Animations */
+.animated {
+  animation-fill-mode: both;
+  animation-duration: var(--animate-duration, 0.2s);
+  animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+.animated.fadeInRight {
+  animation-name: fadeInRight;
+}
+.animated.fadeOutRight {
+  animation-name: fadeOutRight;
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeOutRight {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+.dropdown-animation {
+  opacity: 0;
+  animation: fadeMoveDown 0.15s forwards;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeMoveDown {
+  to {
+    opacity: 1;
+    transform: translateY(6px);
+  }
+}
+
+/* Components */
+/* Terminal */
+.xterm {
+  padding: 1rem;
+}
+
+/* Resize Handle */
+[data-resize-handle] {
+  position: relative;
+}
+[data-resize-handle][data-panel-group-direction='horizontal']:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -6px;
+  right: -5px;
+  z-index: 999;
+}
+[data-resize-handle][data-panel-group-direction='vertical']:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -5px;
+  bottom: -6px;
+  z-index: 999;
+}
+[data-resize-handle][data-resize-handle-state='hover']:after,
+[data-resize-handle][data-resize-handle-state='drag']:after {
+  background-color: #8882;
+}
+
+/* Toast */
+.Toastify__toast {
+  @apply shadow-md;
+
+  background-color: var(--bolt-elements-bg-depth-2);
+  color: var(--bolt-elements-textPrimary);
+  border: 1px solid var(--bolt-elements-borderColor);
+}
+
+.Toastify__close-button {
+  color: var(--bolt-elements-item-contentDefault);
+  opacity: 1;
+  transition: none;
+}
+.Toastify__close-button:hover {
+  color: var(--bolt-elements-item-contentActive);
+}
