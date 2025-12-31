@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "react-toastify/dist/ReactToastify.css";
 import "@xterm/xterm/css/xterm.css";
-import "./styles/index.scss";
+import "~/styles/index.scss";
 
 export const metadata: Metadata = {
 	title: "AI Web - Your AI Assistant",
