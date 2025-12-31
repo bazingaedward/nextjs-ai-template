@@ -5,7 +5,6 @@ import { useShortcuts, useSnapScroll } from "~/lib/hooks";
 import { $chatStore, updateChatStore } from "~/lib/stores/chat";
 import { renderLogger } from "~/utils/logger";
 import { BaseChat } from "./BaseChat";
-import { useLoaderData } from "@remix-run/react";
 import { DefaultChatTransport } from "ai";
 import { useStore } from "@nanostores/react";
 import { workbenchStore } from "~/lib/stores/workbench";
@@ -15,12 +14,12 @@ const toastAnimation = cssTransition({
 	exit: "animated fadeOutRight",
 });
 
-export function Chat() {
+export function Chat({ user }: { user?: any }) {
 	renderLogger.trace("Chat");
 
 	return (
 		<>
-			<ChatImpl />
+			<ChatImpl user={user} />
 			<ToastContainer
 				closeButton={({ closeToast }) => {
 					return (
@@ -56,12 +55,12 @@ export function Chat() {
 	);
 }
 
-export const ChatImpl = () => {
-	useShortcuts();
-	const { user } = useLoaderData();
+export const ChatImpl = ({ user }: { user?: any }) => {
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
 	const chat = useStore($chatStore);
+
 	const [messageRef, scrollRef] = useSnapScroll();
+	useShortcuts();
 
 	const { messages, stop, sendMessage } = useChat({
 		transport: new DefaultChatTransport({
@@ -116,8 +115,6 @@ export const ChatImpl = () => {
 			sendMessage={send}
 			messageRef={messageRef}
 			scrollRef={scrollRef}
-			messages={messages}
-			handleStop={handleStop}
 		/>
 	);
 };

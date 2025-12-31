@@ -29,3 +29,6 @@ dist-ssr
 .wrangler
 _worker.bundle
 wrangler.toml
+
+/.next/
+/out/

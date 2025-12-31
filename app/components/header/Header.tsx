@@ -1,11 +1,11 @@
+"use client";
 import { useStore } from "@nanostores/react";
-import { ClientOnly } from "remix-utils/client-only";
 import { $chatStore } from "~/lib/stores/chat";
 import { classNames } from "~/utils/classNames";
 import { HeaderActionButtons } from "./HeaderActionButtons.client";
-import { useLoaderData, useNavigate } from "@remix-run/react";
+import { useRouter } from "next/navigation";
 import * as Avatar from "@radix-ui/react-avatar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PricingModal } from "~/components/ui/PricingModal";
 import { redirectToCheckout } from "~/lib/stripe.client";
 
@@ -32,11 +32,15 @@ type LoaderData = {
 	} | null;
 };
 
-export function Header() {
+export function Header({ user, subscriptionInfo }: Partial<LoaderData>) {
 	const chat = useStore($chatStore);
-	const navigate = useNavigate();
-	const { user, subscriptionInfo } = useLoaderData<LoaderData>();
+	const router = useRouter();
 	const [isPricingOpen, setIsPricingOpen] = useState(false);
+	const [mounted, setMounted] = useState(false);
+
+	useEffect(() => {
+		setMounted(true);
+	}, []);
 
 	// 从 Supabase user 对象构造 userInfo
 	const userInfo: UserInfo | null = user
@@ -135,7 +139,7 @@ export function Header() {
 							{/* 这里加个标签，如果有订阅信息，显示plan对应的标签 */}
 							<button
 								type="button"
-								onClick={() => navigate("/logout")}
+								onClick={() => router.push("/logout")}
 								className="px-3 py-1.5 text-xs bg-gray-800 text-white rounded-md hover:bg-gray-700 border border-gray-600 transition-colors font-medium"
 								title="Logout"
 							>
@@ -145,7 +149,7 @@ export function Header() {
 					) : (
 						<button
 							type="button"
-							onClick={() => navigate("/login")}
+							onClick={() => router.push("/login")}
 							className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 border border-gray-600 transition-colors font-medium"
 						>
 							Login
@@ -154,14 +158,10 @@ export function Header() {
 				</div>
 			</div>
 
-			{chat.started && (
-				<ClientOnly>
-					{() => (
-						<div className="mr-1">
-							<HeaderActionButtons />
-						</div>
-					)}
-				</ClientOnly>
+			{chat.started && mounted && (
+				<div className="mr-1">
+					<HeaderActionButtons />
+				</div>
 			)}
 
 			{/* Pricing Modal */}

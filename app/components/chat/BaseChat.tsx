@@ -11,6 +11,8 @@ import { ChatTextarea } from "./ChatTextarea";
 import styles from "./BaseChat.module.scss";
 import { $chatStore, updateChatStore } from "~/lib/stores/chat";
 import { useStore } from "@nanostores/react";
+import { debounce } from "~/utils/debounce";
+import { workbenchStore } from "~/lib/stores/workbench";
 
 interface BaseChatProps {
 	textareaRef?: React.RefObject<HTMLTextAreaElement> | undefined;
@@ -46,9 +48,13 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
 		const input = chat.input;
 		const TEXTAREA_MAX_HEIGHT = chatStarted ? 400 : 200;
 
-		const send = () => {
+		if (chatStarted) {
+			workbenchStore.setShowWorkbench(true);
+		}
+
+		const send = debounce(() => {
 			sendMessage?.({ text: input });
-		};
+		});
 
 		const handleInputChange = (
 			event: React.ChangeEvent<HTMLTextAreaElement>,
@@ -159,6 +165,8 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
 							</div>
 						</div>
 					</div>
+
+					{/* 工作台 */}
 					<ClientOnly>
 						{() => (
 							<Workbench chatStarted={chatStarted} isStreaming={isStreaming} />
