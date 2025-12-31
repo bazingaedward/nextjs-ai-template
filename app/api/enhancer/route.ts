@@ -1,16 +1,12 @@
-import { type ActionFunctionArgs } from "@remix-run/cloudflare";
+import { type NextRequest } from "next/server";
 import { streamText } from "~/lib/.server/llm/stream-text";
 import { stripIndents } from "~/utils/stripIndent";
 
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
 
-export async function action(args: ActionFunctionArgs) {
-	return enhancerAction(args);
-}
-
-async function enhancerAction({ context, request }: ActionFunctionArgs) {
-	const { message } = await request.json<{ message: string }>();
+export async function POST(req: NextRequest) {
+	const { message } = (await req.json()) as { message: string };
 
 	try {
 		const result = await streamText(
@@ -28,7 +24,7 @@ async function enhancerAction({ context, request }: ActionFunctionArgs) {
         `,
 				},
 			],
-			context.cloudflare.env,
+			process.env as any,
 		);
 
 		const transformStream = new TransformStream({
@@ -39,7 +35,7 @@ async function enhancerAction({ context, request }: ActionFunctionArgs) {
 			},
 		});
 
-		const transformedStream = result.toAIStream().pipeThrough(transformStream);
+		const transformedStream = (result as any).toAIStream().pipeThrough(transformStream);
 
 		return new Response(transformedStream, {
 			status: 200,
@@ -49,11 +45,7 @@ async function enhancerAction({ context, request }: ActionFunctionArgs) {
 			},
 		});
 	} catch (error) {
-		console.log(error);
-
-		throw new Response(null, {
-			status: 500,
-			statusText: "Internal Server Error",
-		});
+		console.error(error);
+		return new Response("Internal Server Error", { status: 500 });
 	}
 }

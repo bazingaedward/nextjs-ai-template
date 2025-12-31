@@ -14,6 +14,7 @@ interface Message {
 	role: "user" | "assistant";
 	content: string;
 	toolInvocations?: ToolResult<string, unknown, unknown>[];
+    parts?: any[];
 }
 
 export type Messages = Message[];
@@ -25,7 +26,7 @@ export function streamText(
 	env: Env,
 	options?: StreamingOptions,
 ) {
-	const msgs = convertToCoreMessages(messages);
+	const msgs = convertToCoreMessages(messages as any);
 	return _streamText({
 		model: getOpenAIModel(env),
 		system: getSystemPrompt(),

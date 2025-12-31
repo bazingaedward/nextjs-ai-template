@@ -1,12 +1,32 @@
+"use client";
 import type { CoreMessage } from "ai";
 import React, { type RefCallback } from "react";
-import { ClientOnly } from "remix-utils/client-only";
-import { Menu } from "~/components/sidebar/Menu.client";
-import { Workbench } from "~/components/workbench/Workbench.client";
+import dynamic from "next/dynamic";
 import { classNames } from "~/utils/classNames";
-import { Messages } from "./Messages.client";
-import { SendButton } from "./SendButton.client";
-import { ChatTextarea } from "./ChatTextarea";
+
+const Menu = dynamic(
+	() => import("~/components/sidebar/Menu.client").then((mod) => mod.Menu),
+	{ ssr: false },
+);
+const Workbench = dynamic(
+	() =>
+		import("~/components/workbench/Workbench.client").then(
+			(mod) => mod.Workbench,
+		),
+	{ ssr: false },
+);
+const Messages = dynamic(
+	() => import("./Messages.client").then((mod) => mod.Messages),
+	{ ssr: false },
+);
+const SendButton = dynamic(
+	() => import("./SendButton.client").then((mod) => mod.SendButton),
+	{ ssr: false },
+);
+const ChatTextarea = dynamic(
+	() => import("./ChatTextarea").then((mod) => mod.ChatTextarea),
+	{ ssr: false },
+);
 
 import styles from "./BaseChat.module.scss";
 import { $chatStore, updateChatStore } from "~/lib/stores/chat";
@@ -72,7 +92,7 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
 					"relative flex h-full w-full overflow-hidden bg-bolt-elements-background-depth-1",
 				)}
 			>
-				<ClientOnly>{() => <Menu />}</ClientOnly>
+				<Menu />
 				<div ref={scrollRef} className="flex overflow-y-auto w-full h-full">
 					<div
 						className={classNames(
@@ -97,18 +117,14 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
 							})}
 						>
 							{/* Messages */}
-							<ClientOnly>
-								{() => {
-									return chatStarted ? (
-										<Messages
-											ref={messageRef}
-											className="flex flex-col w-full flex-1 max-w-chat px-4 pb-6 mx-auto z-1"
-											messages={messages}
-											isStreaming={isStreaming}
-										/>
-									) : null;
-								}}
-							</ClientOnly>
+							{chatStarted ? (
+								<Messages
+									ref={messageRef}
+									className="flex flex-col w-full flex-1 max-w-chat px-4 pb-6 mx-auto z-1"
+									messages={messages}
+									isStreaming={isStreaming}
+								/>
+							) : null}
 
 							{/* Textarea */}
 							<div
@@ -124,32 +140,26 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
 										"shadow-sm border border-bolt-elements-borderColor bg-bolt-elements-prompt-background backdrop-filter backdrop-blur-[8px] rounded-lg overflow-hidden",
 									)}
 								>
-									<ClientOnly>
-										{() => (
-											<>
-												<ChatTextarea
-													textareaRef={textareaRef}
-													input={input}
-													onInputChange={handleInputChange}
-													onSend={send}
-													minHeight={TEXTAREA_MIN_HEIGHT}
-													maxHeight={TEXTAREA_MAX_HEIGHT}
-												/>
+									<ChatTextarea
+										textareaRef={textareaRef}
+										input={input}
+										onInputChange={handleInputChange}
+										onSend={send}
+										minHeight={TEXTAREA_MIN_HEIGHT}
+										maxHeight={TEXTAREA_MAX_HEIGHT}
+									/>
 
-												<SendButton
-													show={input.length > 0 || isStreaming}
-													isStreaming={isStreaming}
-													onClick={() => {
-														if (isStreaming) {
-															handleStop?.();
-															return;
-														}
-														send();
-													}}
-												/>
-											</>
-										)}
-									</ClientOnly>
+									<SendButton
+										show={input.length > 0 || isStreaming}
+										isStreaming={isStreaming}
+										onClick={() => {
+											if (isStreaming) {
+												handleStop?.();
+												return;
+											}
+											send();
+										}}
+									/>
 									<div className="flex justify-between text-sm p-4 pt-2">
 										{input.length > 3 ? (
 											<div className="text-xs text-bolt-elements-textTertiary">
@@ -167,11 +177,7 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
 					</div>
 
 					{/* 工作台 */}
-					<ClientOnly>
-						{() => (
-							<Workbench chatStarted={chatStarted} isStreaming={isStreaming} />
-						)}
-					</ClientOnly>
+					<Workbench chatStarted={chatStarted} isStreaming={isStreaming} />
 				</div>
 			</div>
 		);

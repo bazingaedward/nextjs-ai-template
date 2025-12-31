@@ -1,7 +1,7 @@
-import { useLoaderData, useNavigate } from "@remix-run/react";
+import { useRouter, useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { atom } from "nanostores";
-import type { Message } from "ai";
+import type { UIMessage as Message } from "ai";
 import { toast } from "react-toastify";
 import { workbenchStore } from "~/lib/stores/workbench";
 import {
@@ -28,9 +28,8 @@ export const chatId = atom<string | undefined>(undefined);
 export const description = atom<string | undefined>(undefined);
 
 export function useChatHistory() {
-	const navigate = useNavigate();
-	// const { id: mixedId } = useLoaderData<{ id?: string }>();
-	const mixedId = "123";
+	const router = useRouter();
+	const { id: mixedId } = useParams();
 
 	const [initialMessages, setInitialMessages] = useState<Message[]>([]);
 	const [ready, setReady] = useState<boolean>(false);
@@ -48,7 +47,7 @@ export function useChatHistory() {
 		}
 
 		if (mixedId) {
-			getMessages(db, mixedId)
+			getMessages(db, mixedId as string)
 				.then((storedMessages) => {
 					if (storedMessages && storedMessages.messages.length > 0) {
 						setInitialMessages(storedMessages.messages);
@@ -56,7 +55,7 @@ export function useChatHistory() {
 						description.set(storedMessages.description);
 						chatId.set(storedMessages.id);
 					} else {
-						navigate(`/`, { replace: true });
+						router.replace(`/`);
 					}
 
 					setReady(true);

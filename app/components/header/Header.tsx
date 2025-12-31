@@ -1,4 +1,5 @@
 "use client";
+
 import { useStore } from "@nanostores/react";
 import { $chatStore } from "~/lib/stores/chat";
 import { classNames } from "~/utils/classNames";
@@ -36,11 +37,6 @@ export function Header({ user, subscriptionInfo }: Partial<LoaderData>) {
 	const chat = useStore($chatStore);
 	const router = useRouter();
 	const [isPricingOpen, setIsPricingOpen] = useState(false);
-	const [mounted, setMounted] = useState(false);
-
-	useEffect(() => {
-		setMounted(true);
-	}, []);
 
 	// 从 Supabase user 对象构造 userInfo
 	const userInfo: UserInfo | null = user
@@ -158,7 +154,7 @@ export function Header({ user, subscriptionInfo }: Partial<LoaderData>) {
 				</div>
 			</div>
 
-			{chat.started && mounted && (
+			{chat.started && (
 				<div className="mr-1">
 					<HeaderActionButtons />
 				</div>

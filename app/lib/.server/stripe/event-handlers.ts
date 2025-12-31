@@ -1,4 +1,3 @@
-import type { ActionFunctionArgs } from "@remix-run/node";
 import type Stripe from "stripe";
 import { createWebhookSupabaseClient } from "./webhook-client";
 import { processPaymentIntentSucceeded } from "./payment-processor";
@@ -10,7 +9,7 @@ import {
 
 export async function handleCheckoutSessionCompleted(
 	event: Stripe.Event,
-	context: ActionFunctionArgs["context"],
+	context: any,
 ) {
 	// 处理 checkout.session.completed 事件
 	const session = event.data.object as Stripe.Checkout.Session;
@@ -87,7 +86,7 @@ export interface WebhookEventHandler {
 	type: string;
 	handler: (
 		event: Stripe.Event,
-		context: ActionFunctionArgs["context"],
+		context: any,
 	) => Promise<void>;
 }
 
@@ -96,7 +95,7 @@ export interface WebhookEventHandler {
  */
 export async function handlePaymentIntentSucceeded(
 	event: Stripe.Event,
-	context: ActionFunctionArgs["context"],
+	context: any,
 ) {
 	const supabase = createWebhookSupabaseClient(context);
 	const paymentIntent = event.data.object as Stripe.PaymentIntent;
@@ -117,7 +116,7 @@ export async function handlePaymentIntentSucceeded(
  */
 export async function handleInvoicePaymentSucceeded(
 	event: Stripe.Event,
-	context: ActionFunctionArgs["context"],
+	context: any,
 ) {
 	const supabase = createWebhookSupabaseClient(context);
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -163,7 +162,7 @@ export async function handleInvoicePaymentSucceeded(
  */
 export async function handleSubscriptionCreated(
 	event: Stripe.Event,
-	context: ActionFunctionArgs["context"],
+	context: any,
 ) {
 	const supabase = createWebhookSupabaseClient(context);
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -232,7 +231,7 @@ export async function handleSubscriptionCreated(
  */
 export async function handleSubscriptionUpdated(
 	event: Stripe.Event,
-	context: ActionFunctionArgs["context"],
+	context: any,
 ) {
 	const supabase = createWebhookSupabaseClient(context);
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -293,7 +292,7 @@ export async function handleSubscriptionUpdated(
  */
 export async function handleSubscriptionDeleted(
 	event: Stripe.Event,
-	context: ActionFunctionArgs["context"],
+	context: any,
 ) {
 	const supabase = createWebhookSupabaseClient(context);
 	const subscription = event.data.object as Stripe.Subscription;

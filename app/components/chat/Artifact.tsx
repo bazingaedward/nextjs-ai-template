@@ -1,3 +1,4 @@
+"use client";
 import { useStore } from "@nanostores/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { computed } from "nanostores";

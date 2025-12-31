@@ -1,4 +1,4 @@
-import { json, type ActionFunctionArgs } from "@remix-run/cloudflare";
+import { type NextRequest, NextResponse } from "next/server";
 import { getOptionalAuth } from "~/lib/auth.server";
 import {
 	createCheckoutSession,
@@ -6,23 +6,19 @@ import {
 	getCustomerByEmail,
 } from "~/lib/stripe.server";
 
-export async function action({ request, context }: ActionFunctionArgs) {
-	if (request.method !== "POST") {
-		return json({ error: "Method not allowed" }, { status: 405 });
-	}
-
+export async function POST(req: NextRequest) {
 	try {
-		const { session } = await getOptionalAuth({ request, context, params: {} });
+		const { session } = await getOptionalAuth(req);
 
 		if (!session?.user) {
-			return json({ error: "Authentication required" }, { status: 401 });
+			return NextResponse.json({ error: "Authentication required" }, { status: 401 });
 		}
 
-		const body = (await request.json()) as { priceId: string };
+		const body = (await req.json()) as { priceId: string };
 		const { priceId } = body;
 
 		if (!priceId) {
-			return json({ error: "Price ID is required" }, { status: 400 });
+			return NextResponse.json({ error: "Price ID is required" }, { status: 400 });
 		}
 
 		const userEmail = session.user.email;
@@ -30,7 +26,7 @@ export async function action({ request, context }: ActionFunctionArgs) {
 			session.user.user_metadata?.name || session.user.user_metadata?.full_name;
 
 		if (!userEmail) {
-			return json({ error: "User email is required" }, { status: 400 });
+			return NextResponse.json({ error: "User email is required" }, { status: 400 });
 		}
 
 		// Check if customer already exists
@@ -47,17 +43,17 @@ export async function action({ request, context }: ActionFunctionArgs) {
 				customerId: customer.id,
 				customerEmail: userEmail,
 				priceId,
-				successUrl: `${new URL(request.url).origin}/payment/success?session_id={CHECKOUT_SESSION_ID}`,
-				cancelUrl: `${new URL(request.url).origin}/payment/canceled`,
+				successUrl: `${new URL(req.url).origin}/payment/success?session_id={CHECKOUT_SESSION_ID}`,
+				cancelUrl: `${new URL(req.url).origin}/payment/canceled`,
 				userId: session.user.id,
 			},
-			context.cloudflare.env,
+			process.env as any,
 		);
 
-		return json({ sessionId: checkoutSession.id });
+		return NextResponse.json({ sessionId: checkoutSession.id, url: checkoutSession.url });
 	} catch (error) {
-		console.error("Stripe checkout error:", error);
-		return json(
+		console.error("Error creating checkout session:", error);
+		return NextResponse.json(
 			{ error: "Failed to create checkout session" },
 			{ status: 500 },
 		);

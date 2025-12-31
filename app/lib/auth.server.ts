@@ -1,16 +1,13 @@
-import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
-import { redirect } from "@remix-run/cloudflare";
+import { redirect } from "next/navigation";
 import { createClient } from "~/lib/supabase.server";
 
-export async function getSupabaseClient(
-	request: Request,
-	context: LoaderFunctionArgs["context"],
-) {
+export async function getSupabaseClient(request: Request) {
 	const response = new Response();
 
 	// 从环境变量获取 Supabase 配置
-	const supabaseUrl = context.cloudflare.env.SUPABASE_URL;
-	const supabaseAnonKey = context.cloudflare.env.SUPABASE_ANON_KEY;
+    // In Next.js, use process.env
+	const supabaseUrl = process.env.SUPABASE_URL;
+	const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
 
 	if (!supabaseUrl || !supabaseAnonKey) {
 		throw new Error("Supabase credentials not configured");
@@ -29,8 +26,8 @@ export async function getSupabaseClient(
  * @param args
  * @returns
  */
-export async function requireAuth({ request, context }: LoaderFunctionArgs) {
-	const { supabase, response } = await getSupabaseClient(request, context);
+export async function requireAuth(request: Request) {
+	const { supabase, response } = await getSupabaseClient(request);
 
 	const {
 		data: { session },
@@ -38,18 +35,17 @@ export async function requireAuth({ request, context }: LoaderFunctionArgs) {
 	} = await supabase.auth.getSession();
 
 	if (error || !session) {
-		throw redirect("/login");
+		redirect("/login");
 	}
 
 	return { session, supabase, response };
 }
 
-export async function getOptionalAuth(args: LoaderFunctionArgs) {
-	const { request } = args;
+export async function getOptionalAuth(request: Request) {
 	const response = new Response();
 
-	const supabaseUrl = args.context.cloudflare.env.SUPABASE_URL;
-	const supabaseAnonKey = args.context.cloudflare.env.SUPABASE_ANON_KEY;
+	const supabaseUrl = process.env.SUPABASE_URL;
+	const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
 
 	if (!supabaseUrl || !supabaseAnonKey) {
 		return { session: null, supabase: null, response };

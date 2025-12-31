@@ -1,4 +1,3 @@
-import type { ActionFunctionArgs } from "@remix-run/node";
 import { createServerClient } from "@supabase/ssr";
 
 /**
@@ -6,15 +5,10 @@ import { createServerClient } from "@supabase/ssr";
  * 使用服务角色密钥来绕过 RLS 策略，因为 webhook 请求没有用户会话
  */
 export function createWebhookSupabaseClient(
-	context: ActionFunctionArgs["context"],
+	context?: any,
 ) {
-	const cloudflareContext = context as unknown as {
-		cloudflare?: { env?: Record<string, unknown> };
-	};
-	const env = cloudflareContext?.cloudflare?.env as Record<string, unknown>;
-
-	const supabaseUrl = env.SUPABASE_URL as string;
-	const supabaseAnonKey = env.SUPABASE_ANON_KEY as string;
+	const supabaseUrl = process.env.SUPABASE_URL as string;
+	const supabaseAnonKey = process.env.SUPABASE_ANON_KEY as string;
 
 	if (!supabaseUrl || !supabaseAnonKey) {
 		throw new Error("Supabase webhook credentials not configured");

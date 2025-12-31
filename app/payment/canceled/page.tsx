@@ -1,4 +1,6 @@
-import { Link } from "@remix-run/react";
+"use client";
+
+import Link from "next/link";
 
 export default function PaymentCanceled() {
 	return (
@@ -18,7 +20,7 @@ export default function PaymentCanceled() {
 
 				<div className="space-y-3">
 					<Link
-						to="/"
+						href="/"
 						className="block w-full bg-accent-500 text-white py-3 px-4 rounded-lg font-medium hover:bg-accent-600 transition-colors"
 					>
 						Continue with Free Plan
@@ -30,10 +32,6 @@ export default function PaymentCanceled() {
 						Try Again
 					</button>
 				</div>
-
-				<p className="mt-6 text-xs text-bolt-elements-textTertiary">
-					You can upgrade to Pro anytime from your account settings.
-				</p>
 			</div>
 		</div>
 	);
