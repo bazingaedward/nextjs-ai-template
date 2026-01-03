@@ -12,6 +12,17 @@ export const DEFAULT_THEME = "dark";
 
 export const themeStore = atom<Theme>("dark");
 
+if (typeof window !== "undefined") {
+	const localTheme = localStorage.getItem(kTheme) as Theme;
+	if (localTheme) {
+		themeStore.set(localTheme);
+	} else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+		themeStore.set("dark");
+	} else {
+		themeStore.set("light");
+	}
+}
+
 export function toggleTheme() {
 	const currentTheme = themeStore.get();
 	const newTheme = currentTheme === "dark" ? "light" : "dark";
@@ -20,5 +31,5 @@ export function toggleTheme() {
 
 	localStorage.setItem(kTheme, newTheme);
 
-	document.querySelector("html")?.setAttribute("data-theme", newTheme);
+	document.documentElement.setAttribute("data-theme", newTheme);
 }

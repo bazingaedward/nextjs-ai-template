@@ -34,7 +34,24 @@ export default function RootLayout({
 					href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
 				/>
 			</head>
-			<body>{children}</body>
+			<body>
+				<script
+					dangerouslySetInnerHTML={{
+						__html: `
+  try {
+    const localTheme = localStorage.getItem("bolt_theme");
+    const supportDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if (localTheme === "dark" || (!localTheme && supportDarkMode)) {
+      document.documentElement.setAttribute("data-theme", "dark");
+    } else {
+      document.documentElement.setAttribute("data-theme", "light");
+    }
+  } catch (e) {}
+`,
+					}}
+				/>
+				{children}
+			</body>
 		</html>
 	);
 }
