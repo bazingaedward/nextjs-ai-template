@@ -8,7 +8,6 @@ import { renderLogger } from "~/utils/logger";
 import { BaseChat } from "./BaseChat";
 import { DefaultChatTransport } from "ai";
 import { useStore } from "@nanostores/react";
-import { workbenchStore } from "~/lib/stores/workbench";
 
 const toastAnimation = cssTransition({
 	enter: "animated fadeInRight",
@@ -107,7 +106,6 @@ export const ChatImpl = ({ user }: { user?: any }) => {
 			aborted: true,
 			input: "",
 		});
-		workbenchStore.abortAllActions();
 	};
 
 	return (

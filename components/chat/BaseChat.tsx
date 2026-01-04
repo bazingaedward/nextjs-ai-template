@@ -8,13 +8,6 @@ const Menu = dynamic(
 	() => import("~/components/sidebar/Menu").then((mod) => mod.Menu),
 	{ ssr: false },
 );
-const Workbench = dynamic(
-	() =>
-		import("~/components/workbench/Workbench").then(
-			(mod) => mod.Workbench,
-		),
-	{ ssr: false },
-);
 const Messages = dynamic(
 	() => import("./Messages").then((mod) => mod.Messages),
 	{ ssr: false },
@@ -31,7 +24,6 @@ const ChatTextarea = dynamic(
 import { $chatStore, updateChatStore } from "~/lib/stores/chat";
 import { useStore } from "@nanostores/react";
 import { debounce } from "~/utils/debounce";
-import { workbenchStore } from "~/lib/stores/workbench";
 
 interface BaseChatProps {
 	textareaRef?: React.RefObject<HTMLTextAreaElement> | undefined;
@@ -67,10 +59,6 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
 		const chatStarted = chat.started;
 		const input = chat.input;
 		const TEXTAREA_MAX_HEIGHT = chatStarted ? 400 : 200;
-
-		if (chatStarted) {
-			workbenchStore.setShowWorkbench(true);
-		}
 
 		const send = debounce(() => {
 			sendMessage?.({ text: input });
@@ -175,10 +163,7 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
 						</div>
 					</div>
 
-					{/* 工作台 */}
-					<Workbench chatStarted={chatStarted} isStreaming={isStreaming} />
-				</div>
 			</div>
-		);
-	},
-);
+                      </div>
+		)
+	})

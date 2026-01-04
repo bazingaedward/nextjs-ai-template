@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { atom } from "nanostores";
 import type { UIMessage as Message } from "ai";
 import { toast } from "react-toastify";
-import { workbenchStore } from "~/lib/stores/workbench";
 import {
 	getMessages,
 	getNextId,
@@ -72,19 +71,6 @@ export function useChatHistory() {
 		storeMessageHistory: async (messages: Message[]) => {
 			if (!db || messages.length === 0) {
 				return;
-			}
-
-			const { firstArtifact } = workbenchStore;
-
-			if (!urlId && firstArtifact?.id) {
-				const urlId = await getUrlId(db, firstArtifact.id);
-
-				navigateChat(urlId);
-				setUrlId(urlId);
-			}
-
-			if (!description.get() && firstArtifact?.title) {
-				description.set(firstArtifact?.title);
 			}
 
 			if (initialMessages.length === 0 && !chatId.get()) {

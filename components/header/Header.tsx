@@ -3,7 +3,6 @@
 import { useStore } from "@nanostores/react";
 import { $chatStore } from "~/lib/stores/chat";
 import { classNames } from "~/utils/classNames";
-import { HeaderActionButtons } from "./HeaderActionButtons";
 import { useRouter } from "next/navigation";
 import * as Avatar from "@radix-ui/react-avatar";
 import { useState, useEffect } from "react";
@@ -156,7 +155,6 @@ export function Header({ user, subscriptionInfo }: Partial<LoaderData>) {
 
 			{chat.started && (
 				<div className="mr-1">
-					<HeaderActionButtons />
 				</div>
 			)}
 
