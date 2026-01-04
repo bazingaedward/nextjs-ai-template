@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "react-toastify/dist/ReactToastify.css";
 import "@xterm/xterm/css/xterm.css";
 import "~/styles/index.css";
+import { ThemeProvider } from "~/components/ThemeProvider";
 
 export const metadata: Metadata = {
 	title: "AI Web - Your AI Assistant",
@@ -16,7 +17,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang="en">
+		<html lang="en" suppressHydrationWarning>
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -35,22 +36,14 @@ export default function RootLayout({
 				/>
 			</head>
 			<body>
-				<script
-					dangerouslySetInnerHTML={{
-						__html: `
-  try {
-    const localTheme = localStorage.getItem("bolt_theme");
-    const supportDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    if (localTheme === "dark" || (!localTheme && supportDarkMode)) {
-      document.documentElement.setAttribute("data-theme", "dark");
-    } else {
-      document.documentElement.setAttribute("data-theme", "light");
-    }
-  } catch (e) {}
-`,
-					}}
-				/>
-				{children}
+				<ThemeProvider
+					attribute="data-theme"
+					defaultTheme="dark"
+					enableSystem
+					storageKey="bolt_theme"
+				>
+					{children}
+				</ThemeProvider>
 			</body>
 		</html>
 	);

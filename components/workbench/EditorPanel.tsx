@@ -1,4 +1,5 @@
 import { useStore } from "@nanostores/react";
+import { useTheme } from "next-themes";
 import { memo, useEffect, useMemo, useRef, useState } from "react";
 import {
 	Panel,
@@ -11,7 +12,6 @@ import { PanelHeader } from "~/components/ui/PanelHeader";
 import { PanelHeaderButton } from "~/components/ui/PanelHeaderButton";
 import { shortcutEventEmitter } from "~/hooks";
 import type { FileMap } from "~/lib/stores/files";
-import { themeStore } from "~/lib/stores/theme";
 import { workbenchStore } from "~/lib/stores/workbench";
 import { classNames } from "~/utils/classNames";
 import { WORK_DIR } from "~/utils/constants";
@@ -46,7 +46,7 @@ export const EditorPanel = memo(
 	}: EditorPanelProps) => {
 		renderLogger.trace("EditorPanel");
 
-		const theme = useStore(themeStore);
+		const { theme } = useTheme();
 		const showTerminal = useStore(workbenchStore.showTerminal);
 
 		const terminalRefs = useRef<Array<TerminalRef | null>>([]);
@@ -76,17 +76,16 @@ export const EditorPanel = memo(
 				},
 			);
 
-			const unsubscribeFromThemeStore = themeStore.subscribe(() => {
-				for (const ref of Object.values(terminalRefs.current)) {
-					ref?.reloadStyles();
-				}
-			});
-
 			return () => {
 				unsubscribeFromEventEmitter();
-				unsubscribeFromThemeStore();
 			};
 		}, []);
+
+		useEffect(() => {
+			for (const ref of Object.values(terminalRefs.current)) {
+				ref?.reloadStyles();
+			}
+		}, [theme]);
 
 		useEffect(() => {
 			const { current: terminal } = terminalPanelRef;
