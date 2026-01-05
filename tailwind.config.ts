@@ -76,150 +76,176 @@ const config: Config = {
 	],
 	darkMode: ["class", '[data-theme="dark"]'],
 	theme: {
-		extend: {
-			colors: {
-				...BASE_COLORS,
-				bolt: {
-					elements: {
-						borderColor: "var(--bolt-elements-borderColor)",
-						borderColorActive: "var(--bolt-elements-borderColorActive)",
-						background: {
-							depth: {
-								1: "var(--bolt-elements-bg-depth-1)",
-								2: "var(--bolt-elements-bg-depth-2)",
-								3: "var(--bolt-elements-bg-depth-3)",
-								4: "var(--bolt-elements-bg-depth-4)",
-							},
-						},
-						textPrimary: "var(--bolt-elements-textPrimary)",
-						textSecondary: "var(--bolt-elements-textSecondary)",
-						textTertiary: "var(--bolt-elements-textTertiary)",
-						code: {
-							background: "var(--bolt-elements-code-background)",
-							text: "var(--bolt-elements-code-text)",
-						},
-						button: {
-							primary: {
-								background:
-									"var(--bolt-elements-button-primary-background)",
-								backgroundHover:
-									"var(--bolt-elements-button-primary-backgroundHover)",
-								text: "var(--bolt-elements-button-primary-text)",
-							},
-							secondary: {
-								background:
-									"var(--bolt-elements-button-secondary-background)",
-								backgroundHover:
-									"var(--bolt-elements-button-secondary-backgroundHover)",
-								text: "var(--bolt-elements-button-secondary-text)",
-							},
-							danger: {
-								background:
-									"var(--bolt-elements-button-danger-background)",
-								backgroundHover:
-									"var(--bolt-elements-button-danger-backgroundHover)",
-								text: "var(--bolt-elements-button-danger-text)",
-							},
-						},
-						item: {
-							contentDefault: "var(--bolt-elements-item-contentDefault)",
-							contentActive: "var(--bolt-elements-item-contentActive)",
-							contentAccent: "var(--bolt-elements-item-contentAccent)",
-							contentDanger: "var(--bolt-elements-item-contentDanger)",
-							backgroundDefault:
-								"var(--bolt-elements-item-backgroundDefault)",
-							backgroundActive: "var(--bolt-elements-item-backgroundActive)",
-							backgroundAccent: "var(--bolt-elements-item-backgroundAccent)",
-							backgroundDanger: "var(--bolt-elements-item-backgroundDanger)",
-						},
-						actions: {
-							background: "var(--bolt-elements-actions-background)",
-							code: {
-								background:
-									"var(--bolt-elements-actions-code-background)",
-							},
-						},
-						artifacts: {
-							background: "var(--bolt-elements-artifacts-background)",
-							backgroundHover:
-								"var(--bolt-elements-artifacts-backgroundHover)",
-							borderColor: "var(--bolt-elements-artifacts-borderColor)",
-							inlineCode: {
-								background:
-									"var(--bolt-elements-artifacts-inlineCode-background)",
-								text: "var(--bolt-elements-artifacts-inlineCode-text)",
-							},
-						},
-						messages: {
-							background: "var(--bolt-elements-messages-background)",
-							linkColor: "var(--bolt-elements-messages-linkColor)",
-							code: {
-								background:
-									"var(--bolt-elements-messages-code-background)",
-							},
-							inlineCode: {
-								background:
-									"var(--bolt-elements-messages-inlineCode-background)",
-								text: "var(--bolt-elements-messages-inlineCode-text)",
-							},
-						},
-						icon: {
-							success: "var(--bolt-elements-icon-success)",
-							error: "var(--bolt-elements-icon-error)",
-							primary: "var(--bolt-elements-icon-primary)",
-							secondary: "var(--bolt-elements-icon-secondary)",
-							tertiary: "var(--bolt-elements-icon-tertiary)",
-						},
-						preview: {
-							addressBar: {
-								background:
-									"var(--bolt-elements-preview-addressBar-background)",
-								backgroundHover:
-									"var(--bolt-elements-preview-addressBar-backgroundHover)",
-								backgroundActive:
-									"var(--bolt-elements-preview-addressBar-backgroundActive)",
-								text: "var(--bolt-elements-preview-addressBar-text)",
-								textActive:
-									"var(--bolt-elements-preview-addressBar-textActive)",
-							},
-						},
-						terminals: {
-							background: "var(--bolt-elements-terminals-background)",
-							buttonBackground:
-								"var(--bolt-elements-terminals-buttonBackground)",
-						},
-						dividerColor: "var(--bolt-elements-dividerColor)",
-						loader: {
-							background: "var(--bolt-elements-loader-background)",
-							progress: "var(--bolt-elements-loader-progress)",
-						},
-						prompt: {
-							background: "var(--bolt-elements-prompt-background)",
-						},
-						sidebar: {
-							dropdownShadow: "var(--bolt-elements-sidebar-dropdownShadow)",
-							buttonBackgroundDefault:
-								"var(--bolt-elements-sidebar-buttonBackgroundDefault)",
-							buttonBackgroundHover:
-								"var(--bolt-elements-sidebar-buttonBackgroundHover)",
-							buttonText: "var(--bolt-elements-sidebar-buttonText)",
-						},
-						cta: {
-							background: "var(--bolt-elements-cta-background)",
-							text: "var(--bolt-elements-cta-text)",
-						},
-					},
-				},
-			},
-			transitionTimingFunction: {
-				"bolt-ease": "cubic-bezier(0.4, 0, 0.2, 1)",
-			},
-			maxWidth: {
-				chat: "var(--chat-max-width)",
-			},
-		},
-	},
-	plugins: [],
+    	extend: {
+    		colors: {
+                ...BASE_COLORS,
+    			bolt: {
+    				elements: {
+    					borderColor: 'var(--bolt-elements-borderColor)',
+    					borderColorActive: 'var(--bolt-elements-borderColorActive)',
+    					background: {
+    						depth: {
+    							'1': 'var(--bolt-elements-bg-depth-1)',
+    							'2': 'var(--bolt-elements-bg-depth-2)',
+    							'3': 'var(--bolt-elements-bg-depth-3)',
+    							'4': 'var(--bolt-elements-bg-depth-4)'
+    						}
+    					},
+    					textPrimary: 'var(--bolt-elements-textPrimary)',
+    					textSecondary: 'var(--bolt-elements-textSecondary)',
+    					textTertiary: 'var(--bolt-elements-textTertiary)',
+    					code: {
+    						background: 'var(--bolt-elements-code-background)',
+    						text: 'var(--bolt-elements-code-text)'
+    					},
+    					button: {
+    						primary: {
+    							background: 'var(--bolt-elements-button-primary-background)',
+    							backgroundHover: 'var(--bolt-elements-button-primary-backgroundHover)',
+    							text: 'var(--bolt-elements-button-primary-text)'
+    						},
+    						secondary: {
+    							background: 'var(--bolt-elements-button-secondary-background)',
+    							backgroundHover: 'var(--bolt-elements-button-secondary-backgroundHover)',
+    							text: 'var(--bolt-elements-button-secondary-text)'
+    						},
+    						danger: {
+    							background: 'var(--bolt-elements-button-danger-background)',
+    							backgroundHover: 'var(--bolt-elements-button-danger-backgroundHover)',
+    							text: 'var(--bolt-elements-button-danger-text)'
+    						}
+    					},
+    					item: {
+    						contentDefault: 'var(--bolt-elements-item-contentDefault)',
+    						contentActive: 'var(--bolt-elements-item-contentActive)',
+    						contentAccent: 'var(--bolt-elements-item-contentAccent)',
+    						contentDanger: 'var(--bolt-elements-item-contentDanger)',
+    						backgroundDefault: 'var(--bolt-elements-item-backgroundDefault)',
+    						backgroundActive: 'var(--bolt-elements-item-backgroundActive)',
+    						backgroundAccent: 'var(--bolt-elements-item-backgroundAccent)',
+    						backgroundDanger: 'var(--bolt-elements-item-backgroundDanger)'
+    					},
+    					actions: {
+    						background: 'var(--bolt-elements-actions-background)',
+    						code: {
+    							background: 'var(--bolt-elements-actions-code-background)'
+    						}
+    					},
+    					artifacts: {
+    						background: 'var(--bolt-elements-artifacts-background)',
+    						backgroundHover: 'var(--bolt-elements-artifacts-backgroundHover)',
+    						borderColor: 'var(--bolt-elements-artifacts-borderColor)',
+    						inlineCode: {
+    							background: 'var(--bolt-elements-artifacts-inlineCode-background)',
+    							text: 'var(--bolt-elements-artifacts-inlineCode-text)'
+    						}
+    					},
+    					messages: {
+    						background: 'var(--bolt-elements-messages-background)',
+    						linkColor: 'var(--bolt-elements-messages-linkColor)',
+    						code: {
+    							background: 'var(--bolt-elements-messages-code-background)'
+    						},
+    						inlineCode: {
+    							background: 'var(--bolt-elements-messages-inlineCode-background)',
+    							text: 'var(--bolt-elements-messages-inlineCode-text)'
+    						}
+    					},
+    					icon: {
+    						success: 'var(--bolt-elements-icon-success)',
+    						error: 'var(--bolt-elements-icon-error)',
+    						primary: 'var(--bolt-elements-icon-primary)',
+    						secondary: 'var(--bolt-elements-icon-secondary)',
+    						tertiary: 'var(--bolt-elements-icon-tertiary)'
+    					},
+    					preview: {
+    						addressBar: {
+    							background: 'var(--bolt-elements-preview-addressBar-background)',
+    							backgroundHover: 'var(--bolt-elements-preview-addressBar-backgroundHover)',
+    							backgroundActive: 'var(--bolt-elements-preview-addressBar-backgroundActive)',
+    							text: 'var(--bolt-elements-preview-addressBar-text)',
+    							textActive: 'var(--bolt-elements-preview-addressBar-textActive)'
+    						}
+    					},
+    					terminals: {
+    						background: 'var(--bolt-elements-terminals-background)',
+    						buttonBackground: 'var(--bolt-elements-terminals-buttonBackground)'
+    					},
+    					dividerColor: 'var(--bolt-elements-dividerColor)',
+    					loader: {
+    						background: 'var(--bolt-elements-loader-background)',
+    						progress: 'var(--bolt-elements-loader-progress)'
+    					},
+    					prompt: {
+    						background: 'var(--bolt-elements-prompt-background)'
+    					},
+    					sidebar: {
+    						dropdownShadow: 'var(--bolt-elements-sidebar-dropdownShadow)',
+    						buttonBackgroundDefault: 'var(--bolt-elements-sidebar-buttonBackgroundDefault)',
+    						buttonBackgroundHover: 'var(--bolt-elements-sidebar-buttonBackgroundHover)',
+    						buttonText: 'var(--bolt-elements-sidebar-buttonText)'
+    					},
+    					cta: {
+    						background: 'var(--bolt-elements-cta-background)',
+    						text: 'var(--bolt-elements-cta-text)'
+    					}
+    				}
+    			},
+    			background: 'hsl(var(--background))',
+    			foreground: 'hsl(var(--foreground))',
+    			card: {
+    				DEFAULT: 'hsl(var(--card))',
+    				foreground: 'hsl(var(--card-foreground))'
+    			},
+    			popover: {
+    				DEFAULT: 'hsl(var(--popover))',
+    				foreground: 'hsl(var(--popover-foreground))'
+    			},
+    			primary: {
+    				DEFAULT: 'hsl(var(--primary))',
+    				foreground: 'hsl(var(--primary-foreground))'
+    			},
+    			secondary: {
+    				DEFAULT: 'hsl(var(--secondary))',
+    				foreground: 'hsl(var(--secondary-foreground))'
+    			},
+    			muted: {
+    				DEFAULT: 'hsl(var(--muted))',
+    				foreground: 'hsl(var(--muted-foreground))'
+    			},
+    			accent: {
+    				DEFAULT: 'hsl(var(--accent))',
+    				foreground: 'hsl(var(--accent-foreground))'
+    			},
+    			destructive: {
+    				DEFAULT: 'hsl(var(--destructive))',
+    				foreground: 'hsl(var(--destructive-foreground))'
+    			},
+    			border: 'hsl(var(--border))',
+    			input: 'hsl(var(--input))',
+    			ring: 'hsl(var(--ring))',
+    			chart: {
+    				'1': 'hsl(var(--chart-1))',
+    				'2': 'hsl(var(--chart-2))',
+    				'3': 'hsl(var(--chart-3))',
+    				'4': 'hsl(var(--chart-4))',
+    				'5': 'hsl(var(--chart-5))'
+    			}
+    		},
+    		transitionTimingFunction: {
+    			'bolt-ease': 'cubic-bezier(0.4, 0, 0.2, 1)'
+    		},
+    		maxWidth: {
+    			chat: 'var(--chat-max-width)'
+    		},
+    		borderRadius: {
+    			lg: 'var(--radius)',
+    			md: 'calc(var(--radius) - 2px)',
+    			sm: 'calc(var(--radius) - 4px)'
+    		}
+    	}
+    },
+	plugins: [require("tailwindcss-animate")],
 };
 
 export default config;
