@@ -30,4 +30,5 @@ _worker.bundle
 wrangler.toml
 
 /.next/
+/.open-next/
 /out/
