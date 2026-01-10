@@ -8,7 +8,7 @@ import {
 import { insertTokenUsage } from "~/lib/token-usage.server";
 import { MODEL_NAME } from "~/lib/.server/llm/model";
 
-export const runtime = "edge";
+// export const runtime = "edge";
 
 export async function POST(req: NextRequest) {
 	const { messages } = (await req.json()) as {
