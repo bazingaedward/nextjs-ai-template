@@ -1,15 +1,41 @@
 #:schema node_modules/wrangler/config-schema.json
 # wrangler.toml
-name = 'nextjs-ai-template'
-compatibility_flags = ["nodejs_compat"]
-compatibility_date = "2024-09-23"
-pages_build_output_dir = ".open-next"
+name = "nextjs-ai-template"
+main = ".open-next/worker.js"
+compatibility_date = "2024-12-30"
+compatibility_flags = [
+  # Enable Node.js API
+  # see https://developers.cloudflare.com/workers/configuration/compatibility-flags/#nodejs-compatibility-flag
+  "nodejs_compat",
+  # Allow to fetch URLs in your app
+  # see https://developers.cloudflare.com/workers/configuration/compatibility-flags/#global-fetch-strictly-public
+  "global_fetch_strictly_public"
+]
+
+[assets]
+directory = ".open-next/assets"
+binding = "ASSETS"
+
+[[services]]
+binding = "WORKER_SELF_REFERENCE"
+# The service should match the "name" of your worker
+service = "nextjs-ai-template"
+
+# Enable image optimization
+# see https://opennext.js.org/cloudflare/howtos/image
+[images]
+binding = "IMAGES"
+
+# Create a R2 binding with the binding name "NEXT_INC_CACHE_R2_BUCKET"
+# [[r2_buckets]]
+# binding = "NEXT_INC_CACHE_R2_BUCKET"
+# bucket_name = "<BUCKET_NAME>"
 
 [vars]
-GOOGLE_CLIENT_ID="734784472277-ike4ja77h9t3khpr1hu1qu8h1b5ssmqg.apps.googleusercontent.com"
-GITHUB_CLIENT_ID="Iv23liH2R1uPkNlfkObU"
-SUPABASE_URL="https://avjfdfudvssfmhdoiqri.supabase.co"
-SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF2amZkZnVkdnNzZm1oZG9pcXJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIwMzA1MzQsImV4cCI6MjA2NzYwNjUzNH0.VC5L6JSlRGGH5RK-rjU9snO-du3onCFjaVqvacyYLhM"
+GOOGLE_CLIENT_ID = "734784472277-ike4ja77h9t3khpr1hu1qu8h1b5ssmqg.apps.googleusercontent.com"
+GITHUB_CLIENT_ID = "Iv23liH2R1uPkNlfkObU"
+SUPABASE_URL = "https://avjfdfudvssfmhdoiqri.supabase.co"
+SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF2amZkZnVkdnNzZm1oZG9pcXJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIwMzA1MzQsImV4cCI6MjA2NzYwNjUzNH0.VC5L6JSlRGGH5RK-rjU9snO-du3onCFjaVqvacyYLhM"
 
 [[kv_namespaces]]
 binding = "USER_LOGIN"
