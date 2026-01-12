@@ -10,13 +10,13 @@
 		"dev": "next dev",
 		"build": "next build",
 		"build:pages": "npx @cloudflare/next-on-pages",
-		"start": "wrangler pages dev .vercel/output/static",
+		"start": "wrangler pages dev",
 		"test": "vitest --run",
 		"test:watch": "vitest",
 		"typecheck": "tsc",
 		"typegen": "wrangler types",
 		"preview": "pnpm build:pages && pnpm start",
-		"deploy": "pnpm build:pages && wrangler pages deploy .vercel/output/static"
+		"deploy": "pnpm build:pages && wrangler pages deploy"
 	},
 	"engines": {
 		"node": ">=18.18.0"
