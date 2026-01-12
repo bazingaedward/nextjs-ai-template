@@ -1,14 +1,19 @@
 "use client";
 
 import { useChat } from "@ai-sdk/react";
-import { useState } from "react";
-import { type PromptInputMessage } from "~/components/ai-elements/prompt-input";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import type { Session } from "@supabase/supabase-js";
+import type { PromptInputMessage } from "~/components/ai-elements/prompt-input";
+import { useSupabase } from "~/hooks/useSupabase";
 
 import { Conversation } from "./Conversation";
 import { PromptInput } from "./PromptInput";
 
 export function BaseChat() {
 	const [input, setInput] = useState("");
+	const [session, setSession] = useState<Session | null>(null);
+	const router = useRouter();
 
 	const { messages, sendMessage, status, stop } = useChat();
 

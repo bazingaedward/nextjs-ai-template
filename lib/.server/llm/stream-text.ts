@@ -22,7 +22,7 @@ export function streamText(
 	const msgs = convertToCoreMessages(messages);
 	return _streamText({
 		model: getOpenAIModel(env),
-		system: getSystemPrompt(),
+		// system: getSystemPrompt(),
 		maxOutputTokens: MAX_TOKENS,
 		messages: msgs,
 		...options,
