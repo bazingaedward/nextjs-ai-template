@@ -1,4 +1,4 @@
-import { type NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import { createClient } from "~/lib/supabase.server";
 import {
 	streamText,
@@ -18,8 +18,11 @@ export async function POST(req: NextRequest) {
 	// In Next.js on Cloudflare, we might need to access bindings via process.env or a specific context helper
 	// For now, assuming process.env has the necessary keys or we are running in an environment where env is available.
 	// If streamText expects the Cloudflare Env object specifically (with bindings), we might need to retrieve it.
-	// But for now, let's cast process.env as any to satisfy the type if it's just looking for keys.
-	const env = process.env as any;
+	const env: Env = {
+		SUPABASE_URL: process.env.SUPABASE_URL ?? "",
+		SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY ?? "",
+		OPENAI_API_KEY: process.env.OPENAI_API_KEY ?? "",
+	};
 
 	try {
 		const options: StreamingOptions = {
@@ -62,7 +65,7 @@ export async function POST(req: NextRequest) {
 			}
 		});
 
-		return (result as any).toDataStreamResponse();
+		return result.toUIMessageStreamResponse();
 	} catch (error) {
 		console.error(error);
 		return new Response("Internal Server Error", { status: 500 });
