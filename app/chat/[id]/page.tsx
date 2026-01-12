@@ -1,4 +1,4 @@
-// import { BaseChat } from "~/components/chat";
+import { BaseChat } from "~/components/chat";
 import { Header } from "~/components/header/Header";
 
 export const runtime = "edge";
@@ -14,7 +14,7 @@ export default async function ChatPage({
 	return (
 		<div className="flex flex-col h-full w-full">
 			<Header />
-			{/* <BaseChat /> */}
+			<BaseChat />
 		</div>
 	);
 }
