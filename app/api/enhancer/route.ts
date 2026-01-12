@@ -4,9 +4,6 @@ import { stripIndents } from "~/utils/stripIndent";
 
 export const runtime = "edge";
 
-const encoder = new TextEncoder();
-const decoder = new TextDecoder();
-
 export async function POST(req: NextRequest) {
 	const { message } = (await req.json()) as { message: string };
 
@@ -29,22 +26,9 @@ export async function POST(req: NextRequest) {
 			process.env as any,
 		);
 
-		const transformStream = new TransformStream({
-			transform(chunk, controller) {
-				// 在 AI SDK v5 中，直接处理文本块
-				const text = decoder.decode(chunk);
-				controller.enqueue(encoder.encode(text));
-			},
-		});
-
-		const transformedStream = (result as any)
-			.toAIStream()
-			.pipeThrough(transformStream);
-
-		return new Response(transformedStream, {
-			status: 200,
+		// AI SDK v6 使用 toTextStreamResponse
+		return result.toTextStreamResponse({
 			headers: {
-				"Content-Type": "text/plain; charset=utf-8",
 				"Cache-Control": "no-cache",
 			},
 		});

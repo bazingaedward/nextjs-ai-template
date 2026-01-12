@@ -16,7 +16,9 @@
 		"typecheck": "tsc",
 		"typegen": "wrangler types",
 		"preview": "pnpm build:pages && pnpm start",
-		"deploy": "wrangler pages deploy"
+		"deploy": "wrangler pages deploy",
+		"size": "du -sh .vercel/output/static/_worker.js && ls -lh .vercel/output/static/_worker.js",
+		"deploy:dry-run": "wrangler pages deploy .vercel/output/static --dry-run"
 	},
 	"engines": {
 		"node": ">=18.18.0"
@@ -27,11 +29,11 @@
 		"@ai-sdk/ui-utils": "^1.2.11",
 		"@animaapp/anima-sdk": "^0.3.7",
 		"@babel/runtime": "^7.28.4",
+		"@cloudflare/next-on-pages": "^1.13.8",
 		"@iconify-json/ph": "^1.1.13",
 		"@iconify-json/svg-spinners": "^1.1.2",
 		"@lezer/highlight": "^1.2.0",
 		"@nanostores/react": "^0.7.2",
-		"@cloudflare/next-on-pages": "^1.13.8",
 		"@radix-ui/react-avatar": "^1.1.10",
 		"@radix-ui/react-collapsible": "^1.1.12",
 		"@radix-ui/react-dialog": "^1.1.15",
@@ -55,7 +57,7 @@
 		"@xterm/addon-web-links": "^0.11.0",
 		"@xterm/xterm": "^5.5.0",
 		"@xyflow/react": "^12.10.0",
-		"ai": "^5.0.117",
+		"ai": "^6.0.27",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"cmdk": "^1.1.1",

@@ -1,6 +1,6 @@
 import {
 	streamText as _streamText,
-	convertToCoreMessages,
+	convertToModelMessages,
 	type UIMessage,
 } from "ai";
 import { getOpenAIModel } from "~/lib/.server/llm/model";
@@ -19,7 +19,7 @@ export function streamText(
 	env: Env,
 	options?: StreamingOptions,
 ) {
-	const msgs = convertToCoreMessages(messages);
+	const msgs = convertToModelMessages(messages);
 	return _streamText({
 		model: getOpenAIModel(env),
 		// system: getSystemPrompt(),
