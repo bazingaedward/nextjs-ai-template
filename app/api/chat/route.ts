@@ -8,18 +8,18 @@ import {
 import { insertTokenUsage } from "~/lib/token-usage.server";
 import { MODEL_NAME } from "~/lib/.server/llm/model";
 
-// export const runtime = "edge";
+export const runtime = "edge";
 
 export async function POST(req: NextRequest) {
 	const { messages } = (await req.json()) as {
 		messages: Messages;
 	};
 
-    // In Next.js on Cloudflare, we might need to access bindings via process.env or a specific context helper
-    // For now, assuming process.env has the necessary keys or we are running in an environment where env is available.
-    // If streamText expects the Cloudflare Env object specifically (with bindings), we might need to retrieve it.
-    // But for now, let's cast process.env as any to satisfy the type if it's just looking for keys.
-    const env = process.env as any;
+	// In Next.js on Cloudflare, we might need to access bindings via process.env or a specific context helper
+	// For now, assuming process.env has the necessary keys or we are running in an environment where env is available.
+	// If streamText expects the Cloudflare Env object specifically (with bindings), we might need to retrieve it.
+	// But for now, let's cast process.env as any to satisfy the type if it's just looking for keys.
+	const env = process.env as any;
 
 	try {
 		const options: StreamingOptions = {
@@ -56,8 +56,8 @@ export async function POST(req: NextRequest) {
 						price,
 					},
 					env.SUPABASE_URL,
-                    env.SUPABASE_ANON_KEY,
-                    req
+					env.SUPABASE_ANON_KEY,
+					req,
 				);
 			}
 		});

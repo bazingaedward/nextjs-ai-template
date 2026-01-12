@@ -2,6 +2,8 @@ import { type NextRequest } from "next/server";
 import { streamText } from "~/lib/.server/llm/stream-text";
 import { stripIndents } from "~/utils/stripIndent";
 
+export const runtime = "edge";
+
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
 
@@ -35,7 +37,9 @@ export async function POST(req: NextRequest) {
 			},
 		});
 
-		const transformedStream = (result as any).toAIStream().pipeThrough(transformStream);
+		const transformedStream = (result as any)
+			.toAIStream()
+			.pipeThrough(transformStream);
 
 		return new Response(transformedStream, {
 			status: 200,

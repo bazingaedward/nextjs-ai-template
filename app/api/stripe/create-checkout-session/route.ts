@@ -6,19 +6,27 @@ import {
 	getCustomerByEmail,
 } from "~/lib/stripe.server";
 
+export const runtime = "edge";
+
 export async function POST(req: NextRequest) {
 	try {
 		const { session } = await getOptionalAuth(req);
 
 		if (!session?.user) {
-			return NextResponse.json({ error: "Authentication required" }, { status: 401 });
+			return NextResponse.json(
+				{ error: "Authentication required" },
+				{ status: 401 },
+			);
 		}
 
 		const body = (await req.json()) as { priceId: string };
 		const { priceId } = body;
 
 		if (!priceId) {
-			return NextResponse.json({ error: "Price ID is required" }, { status: 400 });
+			return NextResponse.json(
+				{ error: "Price ID is required" },
+				{ status: 400 },
+			);
 		}
 
 		const userEmail = session.user.email;
@@ -26,7 +34,10 @@ export async function POST(req: NextRequest) {
 			session.user.user_metadata?.name || session.user.user_metadata?.full_name;
 
 		if (!userEmail) {
-			return NextResponse.json({ error: "User email is required" }, { status: 400 });
+			return NextResponse.json(
+				{ error: "User email is required" },
+				{ status: 400 },
+			);
 		}
 
 		// Check if customer already exists
@@ -50,7 +61,10 @@ export async function POST(req: NextRequest) {
 			process.env as any,
 		);
 
-		return NextResponse.json({ sessionId: checkoutSession.id, url: checkoutSession.url });
+		return NextResponse.json({
+			sessionId: checkoutSession.id,
+			url: checkoutSession.url,
+		});
 	} catch (error) {
 		console.error("Error creating checkout session:", error);
 		return NextResponse.json(

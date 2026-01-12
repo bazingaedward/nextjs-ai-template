@@ -10,6 +10,8 @@ import {
 	handleSubscriptionUpdated,
 } from "~/lib/.server/stripe/event-handlers";
 
+export const runtime = "edge";
+
 export async function POST(req: NextRequest) {
 	const signature = req.headers.get("stripe-signature");
 
@@ -24,11 +26,14 @@ export async function POST(req: NextRequest) {
 		process.env.STRIPE_CLI_WEBHOOK_SECRET) as string;
 
 	if (!endpointSecret) {
-		return NextResponse.json({ error: "Webhook secret not configured" }, { status: 500 });
+		return NextResponse.json(
+			{ error: "Webhook secret not configured" },
+			{ status: 500 },
+		);
 	}
 	let event: Stripe.Event;
 	try {
-        // Assuming constructWebhookEvent can handle process.env or we pass it
+		// Assuming constructWebhookEvent can handle process.env or we pass it
 		event = await constructWebhookEvent(
 			payload,
 			signature,

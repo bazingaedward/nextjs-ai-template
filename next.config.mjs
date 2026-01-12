@@ -1,10 +1,12 @@
-import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
+import { setupDevPlatform } from "@cloudflare/next-on-pages/next-dev";
 
-initOpenNextCloudflareForDev();
+// 开发环境下启用 Cloudflare 平台模拟
+if (process.env.NODE_ENV === "development") {
+	await setupDevPlatform();
+}
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-	output: "standalone",
 	reactStrictMode: true,
 	typescript: {
 		ignoreBuildErrors: true,
