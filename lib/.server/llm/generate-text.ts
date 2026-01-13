@@ -1,29 +1,27 @@
 import {
-	streamText as _streamText,
+	generateText as _generateText,
 	convertToModelMessages,
 	type UIMessage,
 } from "ai";
 import { getOpenAIModel } from "~/lib/.server/llm/model";
 import { MAX_TOKENS } from "./constants";
-import { getSystemPrompt } from "./prompts";
 
 export type Messages = UIMessage[];
 
-export type StreamingOptions = Omit<
-	Parameters<typeof _streamText>[0],
+export type GenerateTextOptions = Omit<
+	Parameters<typeof _generateText>[0],
 	"model" | "messages" | "system" | "prompt"
 >;
 
-export function streamText(
+export function generateText(
 	messages: Messages,
 	env: Env,
-	options?: StreamingOptions,
+	options?: GenerateTextOptions,
 ) {
 	const msgs = convertToModelMessages(messages);
-	return _streamText({
+	return _generateText({
 		model: getOpenAIModel(env),
-		// system: getSystemPrompt(),
-		maxOutputTokens: MAX_TOKENS,
+		maxTokens: MAX_TOKENS,
 		messages: msgs,
 		...options,
 	});

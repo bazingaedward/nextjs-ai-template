@@ -1,9 +1,9 @@
 import type { NextRequest } from "next/server";
 import {
-	streamText,
+	generateText,
 	type Messages,
-	type StreamingOptions,
-} from "~/lib/.server/llm/stream-text";
+	type GenerateTextOptions,
+} from "~/lib/.server/llm/generate-text";
 
 export const runtime = "edge";
 
@@ -12,9 +12,6 @@ export async function POST(req: NextRequest) {
 		messages: Messages;
 	};
 
-	// In Next.js on Cloudflare, we might need to access bindings via process.env or a specific context helper
-	// For now, assuming process.env has the necessary keys or we are running in an environment where env is available.
-	// If streamText expects the Cloudflare Env object specifically (with bindings), we might need to retrieve it.
 	const env: Env = {
 		SUPABASE_URL: process.env.SUPABASE_URL ?? "",
 		SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY ?? "",
@@ -22,13 +19,16 @@ export async function POST(req: NextRequest) {
 	};
 
 	try {
-		const options: StreamingOptions = {
+		const options: GenerateTextOptions = {
 			toolChoice: "none",
 		};
 
-		const result = await streamText(messages, env, options);
+		const result = await generateText(messages, env, options);
 
-		return result.toUIMessageStreamResponse();
+		return Response.json({
+			text: result.text,
+			finishReason: result.finishReason,
+		});
 	} catch (error) {
 		console.error(error);
 		return new Response("Internal Server Error", { status: 500 });
