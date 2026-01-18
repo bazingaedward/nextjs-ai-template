@@ -1,23 +1,25 @@
 "use client";
 
-// import dynamic from "next/dynamic";
-import { useTheme } from "next-themes";
-import { useEffect } from "react";
-import { BaseChat } from "~/components/chat";
-import { Header } from "~/components/header/Header";
+import {
+	Hero,
+	Features,
+	HowItWorks,
+	Pricing,
+	Footer,
+} from "~/components/landing";
+import { LandingHeader } from "~/components/header/LandingHeader";
 
 export default function Page() {
-	// TODO: Implement auth and subscription fetching using Next.js patterns
-	// const { session, supabase } = await getOptionalAuth(args);
-	// let subscriptionInfo = null;
-	// if (session?.user) {
-	//   subscriptionInfo = await getUserSubscriptionById(supabase, session.user.id);
-	// }
-
 	return (
-		<div className="flex flex-col h-full w-full">
-			<Header />
-			<BaseChat />
+		<div className="flex flex-col min-h-screen w-full bg-bolt-elements-background-depth-1">
+			<LandingHeader />
+			<main className="flex-1">
+				<Hero />
+				<Features />
+				<HowItWorks />
+				<Pricing />
+			</main>
+			<Footer />
 		</div>
 	);
 }
