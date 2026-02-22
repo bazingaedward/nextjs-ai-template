@@ -6,10 +6,6 @@
 // Extend the global CloudflareEnv interface used by @cloudflare/next-on-pages
 declare global {
 	interface CloudflareEnv {
-		// Supabase (legacy)
-		SUPABASE_URL: string;
-		SUPABASE_ANON_KEY: string;
-
 		// OpenAI
 		OPENAI_API_KEY: string;
 

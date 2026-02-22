@@ -1,14 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { constructWebhookEvent } from "~/lib/stripe.server";
-import {
-	handleCheckoutSessionCompleted,
-	handleInvoicePaymentSucceeded,
-	handlePaymentIntentSucceeded,
-	handleSubscriptionCreated,
-	handleSubscriptionDeleted,
-	handleSubscriptionUpdated,
-} from "~/lib/.server/stripe/event-handlers";
 
 export const runtime = "edge";
 
@@ -52,22 +44,28 @@ export async function POST(req: NextRequest) {
 	try {
 		switch (event.type) {
 			case "checkout.session.completed":
-				await handleCheckoutSessionCompleted(event, null);
+				// TODO: Handle checkout session completed
+				console.log("checkout.session.completed", event.data.object);
 				break;
 			case "payment_intent.succeeded":
-				await handlePaymentIntentSucceeded(event, null);
+				// TODO: Handle payment intent succeeded
+				console.log("payment_intent.succeeded", event.data.object);
 				break;
 			case "invoice.payment_succeeded":
-				await handleInvoicePaymentSucceeded(event, null);
+				// TODO: Handle invoice payment succeeded
+				console.log("invoice.payment_succeeded", event.data.object);
 				break;
 			case "customer.subscription.created":
-				await handleSubscriptionCreated(event, null);
+				// TODO: Handle subscription created
+				console.log("customer.subscription.created", event.data.object);
 				break;
 			case "customer.subscription.updated":
-				await handleSubscriptionUpdated(event, null);
+				// TODO: Handle subscription updated
+				console.log("customer.subscription.updated", event.data.object);
 				break;
 			case "customer.subscription.deleted":
-				await handleSubscriptionDeleted(event, null);
+				// TODO: Handle subscription deleted
+				console.log("customer.subscription.deleted", event.data.object);
 				break;
 			default:
 				console.log(`Unhandled event type ${event.type}`);
