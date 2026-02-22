@@ -211,11 +211,11 @@ export default function TermsOfServicePage() {
 							For questions about these Terms, please contact us at:
 						</p>
 						<p className="text-bolt-elements-textSecondary mt-4">
-							<strong className="text-white">Email:</strong> legal@sharkbook.ai
+							<strong className="text-white">Email:</strong> legal@sharkbook.org
 							<br />
 							<strong className="text-white">Website:</strong>{" "}
 							<Link href="/" className="text-blue-400 hover:underline">
-								https://sharkbook.ai
+								https://sharkbook.org
 							</Link>
 						</p>
 					</section>

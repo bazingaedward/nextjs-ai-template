@@ -81,7 +81,7 @@ export const PricingModal = memo(
 			if (tier.name === "Team") {
 				// Handle contact sales - could open a contact form or redirect
 				window.open(
-					"mailto:sales@sharkbook.ai?subject=Team Plan Inquiry",
+					"mailto:sales@sharkbook.org?subject=Team Plan Inquiry",
 					"_blank",
 				);
 				return;

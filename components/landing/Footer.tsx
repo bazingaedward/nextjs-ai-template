@@ -6,12 +6,12 @@ const footerLinks = {
 	product: [
 		{ name: "Features", href: "/#features" },
 		{ name: "Pricing", href: "/#pricing" },
-		{ name: "Chrome Extension", href: "https://chrome.google.com/webstore" },
+		{ name: "Chrome Extension", href: "https://chromewebstore.google.com/detail/sharkbook-ai-form-filler/ijloipkdgnehaocdpeaflldddlokhpof" },
 		{ name: "Dashboard", href: "/login" },
 	],
 	support: [
 		{ name: "FAQ", href: "/#faq" },
-		{ name: "Contact Us", href: "mailto:support@sharkbook.ai" },
+		{ name: "Contact Us", href: "mailto:support@sharkbook.org" },
 	],
 	legal: [
 		{ name: "Privacy Policy", href: "/privacy" },

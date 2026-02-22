@@ -194,11 +194,11 @@ export default function PrivacyPolicyPage() {
 						</p>
 						<p className="text-bolt-elements-textSecondary mt-4">
 							<strong className="text-white">Email:</strong>{" "}
-							privacy@sharkbook.ai
+							privacy@sharkbook.org
 							<br />
 							<strong className="text-white">Website:</strong>{" "}
 							<Link href="/" className="text-blue-400 hover:underline">
-								https://sharkbook.ai
+								https://sharkbook.org
 							</Link>
 						</p>
 					</section>

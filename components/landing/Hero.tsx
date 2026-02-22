@@ -44,7 +44,7 @@ export function Hero() {
 							asChild
 						>
 							<a
-								href="https://chrome.google.com/webstore"
+								href="https://chromewebstore.google.com/detail/sharkbook-ai-form-filler/ijloipkdgnehaocdpeaflldddlokhpof"
 								target="_blank"
 								rel="noopener noreferrer"
 							>
@@ -125,8 +125,8 @@ export function Hero() {
 					</div>
 				</div>
 
-				{/* Demo/Screenshot */}
-				<div className="mt-20 relative">
+				{/* TODO: Demo/Screenshot - uncomment when video is ready */}
+				{/* <div className="mt-20 relative">
 					<div className="relative mx-auto max-w-5xl">
 						<div className="rounded-xl border border-bolt-elements-borderColor bg-bolt-elements-background-depth-2 p-2 shadow-2xl">
 							<div className="rounded-lg bg-bolt-elements-background-depth-3 aspect-video flex items-center justify-center">
@@ -156,10 +156,9 @@ export function Hero() {
 								</div>
 							</div>
 						</div>
-						{/* Glow effect */}
 						<div className="absolute -inset-x-20 -bottom-20 h-40 bg-gradient-to-t from-blue-500/20 to-transparent blur-3xl" />
 					</div>
-				</div>
+				</div> */}
 			</div>
 		</section>
 	);
