@@ -13,41 +13,62 @@ export type UserInfo = {
 	id: string;
 	name: string;
 	email: string;
+	avatar_url?: string;
 };
 
-type LoaderData = {
-	user: {
+type SubscriptionInfo = {
+	status: string;
+	plan: string;
+} | null;
+
+type SessionResponse = {
+	authenticated: boolean;
+	user?: {
 		id: string;
 		email: string;
-		user_metadata: {
-			name?: string;
-			avatar_url?: string;
-			full_name?: string;
-			picture?: string;
-		};
-	} | null;
-	subscriptionInfo: {
-		status: string;
-		plan: string;
-	} | null;
+		name: string | null;
+		avatar_url: string | null;
+		email_verified: boolean;
+	};
 };
 
-export function Header({ user, subscriptionInfo }: Partial<LoaderData>) {
+export function Header() {
 	const chat = useStore($chatStore);
 	const router = useRouter();
 	const [isPricingOpen, setIsPricingOpen] = useState(false);
+	const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+	const [subscriptionInfo, setSubscriptionInfo] = useState<SubscriptionInfo>(null);
+	const [loading, setLoading] = useState(true);
 
-	// 从 Supabase user 对象构造 userInfo
-	const userInfo: UserInfo | null = user
-		? {
-				id: user.id,
-				name:
-					user.user_metadata?.name ||
-					user.user_metadata?.full_name ||
-					user.email.split("@")[0],
-				email: user.email,
+	// 获取用户会话信息
+	useEffect(() => {
+		async function fetchSession() {
+			try {
+				const response = await fetch("/api/auth/session", {
+					credentials: "include",
+				});
+				const data: SessionResponse = await response.json();
+
+				if (data.authenticated && data.user) {
+					setUserInfo({
+						id: data.user.id,
+						name: data.user.name || data.user.email.split("@")[0],
+						email: data.user.email,
+						avatar_url: data.user.avatar_url || undefined,
+					});
+				} else {
+					setUserInfo(null);
+				}
+			} catch (error) {
+				console.error("Failed to fetch session:", error);
+				setUserInfo(null);
+			} finally {
+				setLoading(false);
 			}
-		: null;
+		}
+
+		fetchSession();
+	}, []);
 
 	const handleSubscribe = async (priceId?: string) => {
 		if (!priceId) return;
@@ -56,7 +77,6 @@ export function Header({ user, subscriptionInfo }: Partial<LoaderData>) {
 			await redirectToCheckout({ priceId });
 		} catch (error) {
 			console.error("Subscription error:", error);
-			// You could show a toast notification here
 		}
 	};
 
@@ -84,24 +104,23 @@ export function Header({ user, subscriptionInfo }: Partial<LoaderData>) {
 					<div className="mr-3">
 						<div
 							onClick={() => setIsPricingOpen(true)}
-							className="px-4 py-2  text-white text-sm font-medium "
+							className="px-4 py-2  text-white text-sm font-medium cursor-pointer"
 						>
 							Pricing
 						</div>
 					</div>
 				</div>
 
-				{/* Pricing Button */}
+				{/* User Info / Login Button */}
 				<div className="flex items-center gap-4">
-					{userInfo ? (
+					{loading ? (
+						<div className="w-8 h-8 rounded-full bg-gray-700 animate-pulse" />
+					) : userInfo ? (
 						<div className="flex items-center gap-3">
 							<Avatar.Root className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-600 text-white text-sm font-medium overflow-hidden">
 								<Avatar.Image
 									className="w-full h-full object-cover"
-									src={
-										user?.user_metadata?.avatar_url ||
-										user?.user_metadata?.picture
-									}
+									src={userInfo.avatar_url}
 									alt={userInfo.name}
 								/>
 								<Avatar.Fallback className="w-full h-full flex items-center justify-center bg-gray-600 text-white text-sm font-medium">
@@ -131,7 +150,6 @@ export function Header({ user, subscriptionInfo }: Partial<LoaderData>) {
 									</span>
 								</div>
 							)}
-							{/* 这里加个标签，如果有订阅信息，显示plan对应的标签 */}
 							<button
 								type="button"
 								onClick={() => router.push("/logout")}
