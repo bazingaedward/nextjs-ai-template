@@ -1,11 +1,64 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import * as Avatar from "@radix-ui/react-avatar";
 import { Button } from "~/components/ui/button";
 
+type UserInfo = {
+	id: string;
+	name: string;
+	email: string;
+	avatar_url?: string;
+};
+
+type SessionResponse = {
+	authenticated: boolean;
+	user?: {
+		id: string;
+		email: string;
+		name: string | null;
+		avatar_url: string | null;
+		email_verified: boolean;
+	};
+};
+
 export function LandingHeader() {
+	const router = useRouter();
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+	const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+	const [loading, setLoading] = useState(true);
+
+	// 获取用户会话信息
+	useEffect(() => {
+		async function fetchSession() {
+			try {
+				const response = await fetch("/api/auth/session", {
+					credentials: "include",
+				});
+				const data: SessionResponse = await response.json();
+
+				if (data.authenticated && data.user) {
+					setUserInfo({
+						id: data.user.id,
+						name: data.user.name || data.user.email.split("@")[0],
+						email: data.user.email,
+						avatar_url: data.user.avatar_url || undefined,
+					});
+				} else {
+					setUserInfo(null);
+				}
+			} catch (error) {
+				console.error("Failed to fetch session:", error);
+				setUserInfo(null);
+			} finally {
+				setLoading(false);
+			}
+		}
+
+		fetchSession();
+	}, []);
 
 	const navLinks = [
 		{ name: "Features", href: "/#features" },
@@ -44,9 +97,36 @@ export function LandingHeader() {
 
 					{/* Desktop CTA */}
 					<div className="hidden md:flex items-center gap-4">
-						<Button variant="ghost" asChild>
-							<Link href="/login">Sign In</Link>
-						</Button>
+						{loading ? (
+							<div className="w-8 h-8 rounded-full bg-gray-700 animate-pulse" />
+						) : userInfo ? (
+							<div className="flex items-center gap-3">
+								<Avatar.Root className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-600 text-white text-sm font-medium overflow-hidden">
+									<Avatar.Image
+										className="w-full h-full object-cover"
+										src={userInfo.avatar_url}
+										alt={userInfo.name}
+									/>
+									<Avatar.Fallback className="w-full h-full flex items-center justify-center bg-gray-600 text-white text-sm font-medium">
+										{userInfo.name.charAt(0).toUpperCase()}
+									</Avatar.Fallback>
+								</Avatar.Root>
+								<span className="text-white text-sm font-medium">
+									{userInfo.name}
+								</span>
+								<Button
+									variant="outline"
+									size="sm"
+									onClick={() => router.push("/logout")}
+								>
+									Logout
+								</Button>
+							</div>
+						) : (
+							<Button variant="ghost" asChild>
+								<Link href="/login">Sign In</Link>
+							</Button>
+						)}
 						<Button
 							className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white"
 							asChild
@@ -114,9 +194,38 @@ export function LandingHeader() {
 								</Link>
 							))}
 							<div className="flex flex-col gap-3 pt-4 border-t border-bolt-elements-borderColor">
-								<Button variant="outline" className="w-full" asChild>
-									<Link href="/login">Sign In</Link>
-								</Button>
+								{loading ? (
+									<div className="w-8 h-8 rounded-full bg-gray-700 animate-pulse mx-auto" />
+								) : userInfo ? (
+									<div className="flex items-center gap-3 py-2">
+										<Avatar.Root className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-600 text-white text-sm font-medium overflow-hidden">
+											<Avatar.Image
+												className="w-full h-full object-cover"
+												src={userInfo.avatar_url}
+												alt={userInfo.name}
+											/>
+											<Avatar.Fallback className="w-full h-full flex items-center justify-center bg-gray-600 text-white text-sm font-medium">
+												{userInfo.name.charAt(0).toUpperCase()}
+											</Avatar.Fallback>
+										</Avatar.Root>
+										<span className="text-white text-sm font-medium">
+											{userInfo.name}
+										</span>
+									</div>
+								) : null}
+								{userInfo ? (
+									<Button
+										variant="outline"
+										className="w-full"
+										onClick={() => router.push("/logout")}
+									>
+										Logout
+									</Button>
+								) : (
+									<Button variant="outline" className="w-full" asChild>
+										<Link href="/login">Sign In</Link>
+									</Button>
+								)}
 								<Button
 									className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white"
 									asChild
