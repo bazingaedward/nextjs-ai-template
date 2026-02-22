@@ -1,22 +1,26 @@
 "use client";
 
 import { useEffect } from "react";
-import { createBrowserClient } from "@supabase/ssr";
 import { useRouter } from "next/navigation";
 
 export default function Logout() {
   const router = useRouter();
 
   useEffect(() => {
-    const supabase = createBrowserClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
-
-    supabase.auth.signOut().then(() => {
-      router.push("/");
-    });
-  }, []);
+    // Call the logout API endpoint
+    fetch("/api/auth/logout", {
+      method: "POST",
+      credentials: "include",
+    })
+      .then(() => {
+        router.push("/");
+      })
+      .catch((error) => {
+        console.error("Logout error:", error);
+        // Still redirect to home on error
+        router.push("/");
+      });
+  }, [router]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">

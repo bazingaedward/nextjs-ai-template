@@ -27,3 +27,11 @@ id = "7138352381ae4e78ac7fab39213a172a"
 [[kv_namespaces]]
 binding = "KV_STORE"
 id = "ae336fab0e664753a694538bd82f6302"
+
+# D1 Database for authentication
+# Create with: wrangler d1 create nextjs-auth-db
+# Then update the database_id below
+[[d1_databases]]
+binding = "DB"
+database_name = "nextjs-auth-db"
+database_id = "f39a421f-a51a-46e1-809c-7354b3f6fd61"

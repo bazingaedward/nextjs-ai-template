@@ -8,6 +8,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "next dev",
+		"dev:cf": "pnpm build:pages && wrangler pages dev .vercel/output/static --compatibility-flag=nodejs_compat",
 		"build": "next build",
 		"build:pages": "pnpx @cloudflare/next-on-pages",
 		"start": "wrangler pages dev",

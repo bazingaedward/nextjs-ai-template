@@ -1,11 +1,86 @@
 import { redirect } from "next/navigation";
+import { getRequestContext } from "@cloudflare/next-on-pages";
+import {
+	validateSession,
+	getOptionalSession as getOptionalD1Session,
+} from "~/lib/auth/session";
+import type { User, Session } from "~/types/auth";
+
+// Legacy Supabase imports for backward compatibility
 import { createClient } from "~/lib/supabase.server";
+
+/**
+ * Get D1 database from Cloudflare context
+ */
+function getD1Database(): D1Database | null {
+	try {
+		const { env } = getRequestContext();
+		return env.DB || null;
+	} catch {
+		return null;
+	}
+}
+
+/**
+ * Require authentication using D1 session
+ * Redirects to /login if not authenticated
+ */
+export async function requireAuth(): Promise<{
+	user: User;
+	session: Session;
+}> {
+	const db = getD1Database();
+
+	if (!db) {
+		// Fallback error - D1 not configured
+		console.error("D1 database not configured");
+		redirect("/login");
+	}
+
+	const validation = await validateSession(db);
+
+	if (!validation.valid || !validation.user || !validation.session) {
+		redirect("/login");
+	}
+
+	return {
+		user: validation.user,
+		session: validation.session,
+	};
+}
+
+/**
+ * Get optional authentication using D1 session
+ * Returns null if not authenticated (does not redirect)
+ */
+export async function getOptionalAuth(): Promise<{
+	user: User;
+	session: Session;
+} | null> {
+	const db = getD1Database();
+
+	if (!db) {
+		return null;
+	}
+
+	return getOptionalD1Session(db);
+}
+
+/**
+ * Check if user is authenticated
+ */
+export async function isAuthenticated(): Promise<boolean> {
+	const auth = await getOptionalAuth();
+	return auth !== null;
+}
+
+// ============================================
+// Legacy Supabase functions (for backward compatibility)
+// ============================================
 
 export async function getSupabaseClient(request: Request) {
 	const response = new Response();
 
-	// 从环境变量获取 Supabase 配置
-    // In Next.js, use process.env
 	const supabaseUrl = process.env.SUPABASE_URL;
 	const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
 
@@ -21,12 +96,8 @@ export async function getSupabaseClient(request: Request) {
 	);
 	return { supabase, response };
 }
-/**
- * chat id usage
- * @param args
- * @returns
- */
-export async function requireAuth(request: Request) {
+
+export async function requireAuthSupabase(request: Request) {
 	const { supabase, response } = await getSupabaseClient(request);
 
 	const {
@@ -41,7 +112,7 @@ export async function requireAuth(request: Request) {
 	return { session, supabase, response };
 }
 
-export async function getOptionalAuth(request: Request) {
+export async function getOptionalAuthSupabase(request: Request) {
 	const response = new Response();
 
 	const supabaseUrl = process.env.SUPABASE_URL;
