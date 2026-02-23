@@ -119,7 +119,7 @@ export default function PrivacyPolicyPage() {
 						</p>
 						<ul className="list-disc list-inside text-bolt-elements-textSecondary space-y-2">
 							<li>
-								<strong>OpenAI</strong> - For AI-powered form analysis
+								<strong>Google Gemini</strong> - For AI-powered form analysis
 							</li>
 							<li>
 								<strong>Stripe</strong> - For secure payment processing

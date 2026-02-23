@@ -11,9 +11,9 @@ importers:
 
   .:
     dependencies:
-      '@ai-sdk/openai':
+      '@ai-sdk/google':
         specifier: ^2.0.0
-        version: 2.0.89(zod@4.3.4)
+        version: 2.0.54(zod@4.3.4)
       '@ai-sdk/react':
         specifier: ^2.0.2
         version: 2.0.119(react@19.2.3)(zod@4.3.4)
@@ -291,8 +291,8 @@ packages:
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
 
-  '@ai-sdk/openai@2.0.89':
-    resolution: {integrity: sha512-4+qWkBCbL9HPKbgrUO/F2uXZ8GqrYxHa8SWEYIzxEJ9zvWw3ISr3t1/27O1i8MGSym+PzEyHBT48EV4LAwWaEw==}
+  '@ai-sdk/google@2.0.54':
+    resolution: {integrity: sha512-VKguP0x/PUYpdQyuA/uy5pDGJy6reL0X/yDKxHfL207aCUXpFIBmyMhVs4US39dkEVhtmIFSwXauY0Pt170JRw==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
@@ -305,6 +305,12 @@ packages:
 
   '@ai-sdk/provider-utils@3.0.20':
     resolution: {integrity: sha512-iXHVe0apM2zUEzauqJwqmpC37A5rihrStAih5Ks+JE32iTe4LZ58y17UGBjpQQTCRw9YxMeo2UFLxLpBluyvLQ==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.25.76 || ^4.1.8
+
+  '@ai-sdk/provider-utils@3.0.21':
+    resolution: {integrity: sha512-veuMwTLxsgh31Jjn0SnBABnM1f7ebHhRWcV2ZuY3hP3iJDCZ8VXBaYqcHXoOQDqUXTCas08sKQcHyWK+zl882Q==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
@@ -4702,10 +4708,10 @@ snapshots:
       '@vercel/oidc': 3.0.5
       zod: 4.3.4
 
-  '@ai-sdk/openai@2.0.89(zod@4.3.4)':
+  '@ai-sdk/google@2.0.54(zod@4.3.4)':
     dependencies:
       '@ai-sdk/provider': 2.0.1
-      '@ai-sdk/provider-utils': 3.0.20(zod@4.3.4)
+      '@ai-sdk/provider-utils': 3.0.21(zod@4.3.4)
       zod: 4.3.4
 
   '@ai-sdk/provider-utils@2.2.8(zod@4.3.4)':
@@ -4716,6 +4722,13 @@ snapshots:
       zod: 4.3.4
 
   '@ai-sdk/provider-utils@3.0.20(zod@4.3.4)':
+    dependencies:
+      '@ai-sdk/provider': 2.0.1
+      '@standard-schema/spec': 1.1.0
+      eventsource-parser: 3.0.6
+      zod: 4.3.4
+
+  '@ai-sdk/provider-utils@3.0.21(zod@4.3.4)':
     dependencies:
       '@ai-sdk/provider': 2.0.1
       '@standard-schema/spec': 1.1.0

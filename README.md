@@ -23,7 +23,7 @@ To get started with Sharkbook, follow these steps:
 4. Set up the environment variables:    
    Create a `.env` file in the root directory and add the following variables:
    ```env
-   OPENAI_API_KEY=your_openai_api_key
+   GOOGLE_GENERATIVE_AI_API_KEY=your_google_gemini_api_key
    CLOUDINARY_URL=your_cloudinary_url
    ```
 5. Start the development server:

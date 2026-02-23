@@ -6,8 +6,8 @@
 // Extend the global CloudflareEnv interface used by @cloudflare/next-on-pages
 declare global {
 	interface CloudflareEnv {
-		// OpenAI
-		OPENAI_API_KEY: string;
+		// Google Gemini
+		GOOGLE_GENERATIVE_AI_API_KEY: string;
 
 		// Google OAuth
 		GOOGLE_CLIENT_ID: string;

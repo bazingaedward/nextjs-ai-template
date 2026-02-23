@@ -1,12 +1,12 @@
-import { createOpenAI } from "@ai-sdk/openai";
+import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { getAPIKey } from "./api-key";
 
-export const MODEL_NAME = "gpt-4o";
+export const MODEL_NAME = "gemini-3-flash-preview";
 
-export function getOpenAIModel(env: Env) {
-	const openai = createOpenAI({
+export function getGeminiModel(env: Env) {
+	const google = createGoogleGenerativeAI({
 		apiKey: getAPIKey(env),
 	});
 
-	return openai(MODEL_NAME);
+	return google(MODEL_NAME);
 }

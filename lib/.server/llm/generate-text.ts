@@ -3,7 +3,7 @@ import {
 	convertToModelMessages,
 	type UIMessage,
 } from "ai";
-import { getOpenAIModel } from "~/lib/.server/llm/model";
+import { getGeminiModel } from "~/lib/.server/llm/model";
 import { MAX_TOKENS } from "./constants";
 
 export type Messages = UIMessage[];
@@ -20,7 +20,7 @@ export function generateText(
 ) {
 	const msgs = convertToModelMessages(messages);
 	return _generateText({
-		model: getOpenAIModel(env),
+		model: getGeminiModel(env),
 		maxTokens: MAX_TOKENS,
 		messages: msgs,
 		...options,
