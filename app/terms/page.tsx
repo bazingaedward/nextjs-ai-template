@@ -33,7 +33,7 @@ export default function TermsOfServicePage() {
 							By installing, accessing, or using the Sharkbook AI Form Filler
 							Chrome extension and related services ("Service"), you agree to be
 							bound by these Terms of Service ("Terms"). If you do not agree to
-							these Terms, please do not use our Service.
+							these Terms, please do not use the Service.
 						</p>
 					</section>
 
@@ -70,7 +70,7 @@ export default function TermsOfServicePage() {
 						</h2>
 						<h3 className="text-xl font-medium text-white mb-3">4.1 Plans</h3>
 						<p className="text-bolt-elements-textSecondary leading-relaxed mb-4">
-							We offer both free and paid subscription plans. Free plans have
+							I offer both free and paid subscription plans. Free plans have
 							limited features and usage quotas. Paid plans provide additional
 							features and higher usage limits.
 						</p>
@@ -90,8 +90,8 @@ export default function TermsOfServicePage() {
 							4.3 Refunds
 						</h3>
 						<p className="text-bolt-elements-textSecondary leading-relaxed">
-							We offer a 7-day money-back guarantee for new subscriptions. After
-							7 days, refunds are provided at our discretion. Contact support
+							I offer a 7-day money-back guarantee for new subscriptions. After
+							7 days, refunds are provided at my discretion. Contact me
 							for refund requests.
 						</p>
 					</section>
@@ -123,9 +123,9 @@ export default function TermsOfServicePage() {
 						</h2>
 						<p className="text-bolt-elements-textSecondary leading-relaxed">
 							The Service, including all content, features, and functionality,
-							is owned by Sharkbook and is protected by international copyright,
+							is owned by the developer of Sharkbook and is protected by international copyright,
 							trademark, and other intellectual property laws. You retain
-							ownership of any documents you upload, but grant us a limited
+							ownership of any documents you upload, but grant me a limited
 							license to process them for providing the Service.
 						</p>
 					</section>
@@ -135,10 +135,10 @@ export default function TermsOfServicePage() {
 							7. AI-Generated Content
 						</h2>
 						<p className="text-bolt-elements-textSecondary leading-relaxed">
-							Our AI-powered form filling is provided "as-is." While we strive
+							The AI-powered form filling is provided "as-is." While I strive
 							for accuracy, AI-generated content may contain errors. You are
 							responsible for reviewing and verifying all auto-filled
-							information before submission. We are not liable for any errors in
+							information before submission. I am not liable for any errors in
 							AI-generated content.
 						</p>
 					</section>
@@ -148,7 +148,7 @@ export default function TermsOfServicePage() {
 							8. Limitation of Liability
 						</h2>
 						<p className="text-bolt-elements-textSecondary leading-relaxed">
-							TO THE MAXIMUM EXTENT PERMITTED BY LAW, SHARKBOOK SHALL NOT BE
+							TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE DEVELOPER OF SHARKBOOK SHALL NOT BE
 							LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR
 							PUNITIVE DAMAGES, INCLUDING LOSS OF PROFITS, DATA, OR OTHER
 							INTANGIBLE LOSSES, RESULTING FROM YOUR USE OF THE SERVICE.
@@ -172,7 +172,7 @@ export default function TermsOfServicePage() {
 							10. Termination
 						</h2>
 						<p className="text-bolt-elements-textSecondary leading-relaxed">
-							We may terminate or suspend your account and access to the Service
+							I may terminate or suspend your account and access to the Service
 							immediately, without prior notice, for any reason, including
 							breach of these Terms. Upon termination, your right to use the
 							Service will cease immediately. You may cancel your subscription
@@ -185,7 +185,7 @@ export default function TermsOfServicePage() {
 							11. Changes to Terms
 						</h2>
 						<p className="text-bolt-elements-textSecondary leading-relaxed">
-							We reserve the right to modify these Terms at any time. We will
+							I reserve the right to modify these Terms at any time. I will
 							notify users of material changes via email or in-app notification.
 							Continued use of the Service after changes constitutes acceptance
 							of the new Terms.
@@ -208,10 +208,10 @@ export default function TermsOfServicePage() {
 							13. Contact Information
 						</h2>
 						<p className="text-bolt-elements-textSecondary leading-relaxed">
-							For questions about these Terms, please contact us at:
+							For questions about these Terms, please contact me at:
 						</p>
 						<p className="text-bolt-elements-textSecondary mt-4">
-							<strong className="text-white">Email:</strong> legal@sharkbook.org
+							<strong className="text-white">Email:</strong> bazingaedward@gmail.com
 							<br />
 							<strong className="text-white">Website:</strong>{" "}
 							<Link href="/" className="text-blue-400 hover:underline">

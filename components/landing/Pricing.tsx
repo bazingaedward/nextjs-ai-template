@@ -1,67 +1,12 @@
 "use client";
 
 import { Button } from "~/components/ui/button";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from "~/components/ui/card";
 
-const plans = [
-	{
-		name: "Free",
-		price: "$0",
-		period: "forever",
-		description: "Perfect for trying out the extension",
-		features: [
-			"10 form fills per month",
-			"1 document upload",
-			"Basic form detection",
-			"Standard support",
-		],
-		cta: "Get Started",
-		variant: "outline" as const,
-		popular: false,
-	},
-	{
-		name: "Pro",
-		price: "$9",
-		period: "per month",
-		description: "For power users who fill forms daily",
-		features: [
-			"Unlimited form fills",
-			"Unlimited documents",
-			"Advanced AI extraction",
-			"Custom field mapping",
-			"Form templates",
-			"Priority support",
-			"Analytics dashboard",
-		],
-		cta: "Start Free Trial",
-		variant: "default" as const,
-		popular: true,
-	},
-	{
-		name: "Team",
-		price: "$29",
-		period: "per month",
-		description: "For teams and organizations",
-		features: [
-			"Everything in Pro",
-			"5 team members",
-			"Shared templates",
-			"Team analytics",
-			"Admin controls",
-			"API access",
-			"Dedicated support",
-		],
-		cta: "Contact Sales",
-		variant: "outline" as const,
-		popular: false,
-	},
+const freeFeatures = [
+	"10 form fills per month",
+	"1 document upload",
+	"Basic form detection",
+	"Standard support",
 ];
 
 export function Pricing() {
@@ -71,96 +16,100 @@ export function Pricing() {
 			className="py-20 sm:py-32 bg-bolt-elements-background-depth-2"
 		>
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				{/* GitHub Star CTA */}
+				<div className="text-center mb-12">
+					<a
+						href="https://github.com/bazingaedward/nextjs-ai-template"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-bolt-elements-borderColor bg-bolt-elements-background-depth-3 hover:border-blue-500/60 transition-all group"
+					>
+						<svg
+							className="w-6 h-6 text-white"
+							fill="currentColor"
+							viewBox="0 0 24 24"
+							aria-hidden="true"
+						>
+							<path
+								fillRule="evenodd"
+								d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+								clipRule="evenodd"
+							/>
+						</svg>
+						<span className="text-white font-medium">Star on GitHub</span>
+						<svg
+							className="w-5 h-5 text-yellow-400 group-hover:scale-110 transition-transform"
+							fill="currentColor"
+							viewBox="0 0 24 24"
+							aria-hidden="true"
+						>
+							<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+						</svg>
+					</a>
+				</div>
+
 				{/* Section header */}
-				<div className="text-center mb-16">
+				<div className="text-center mb-12">
 					<h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-						Simple, Transparent Pricing
+						完全免费，开源使用
 					</h2>
 					<p className="text-lg text-bolt-elements-textSecondary max-w-2xl mx-auto">
-						Start for free, upgrade when you need more. No hidden fees.
+						所有核心功能免费开放，无隐藏费用。喜欢的话请给我们一个 Star ⭐
 					</p>
 				</div>
 
-				{/* Pricing cards */}
-				<div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-					{plans.map((plan) => (
-						<Card
-							key={plan.name}
-							className={`relative bg-bolt-elements-background-depth-3 border-bolt-elements-borderColor ${
-								plan.popular
-									? "border-blue-500 ring-2 ring-blue-500/20"
-									: "hover:border-bolt-elements-borderColor/80"
-							} transition-all`}
-						>
-							{plan.popular && (
-								<div className="absolute -top-4 left-1/2 -translate-x-1/2">
-									<span className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-sm font-medium px-4 py-1 rounded-full">
-										Most Popular
-									</span>
-								</div>
-							)}
+				{/* Free features */}
+				<div className="max-w-md mx-auto">
+					<div className="bg-bolt-elements-background-depth-3 border border-bolt-elements-borderColor rounded-2xl p-8">
+						<div className="text-center mb-6">
+							<span className="text-4xl font-bold text-white">$0</span>
+							<span className="text-bolt-elements-textSecondary ml-2">
+								/forever
+							</span>
+						</div>
 
-							<CardHeader className="text-center pt-8">
-								<CardTitle className="text-2xl text-white">
-									{plan.name}
-								</CardTitle>
-								<div className="mt-4">
-									<span className="text-4xl font-bold text-white">
-										{plan.price}
-									</span>
-									<span className="text-bolt-elements-textSecondary ml-2">
-										/{plan.period}
-									</span>
-								</div>
-								<CardDescription className="mt-2">
-									{plan.description}
-								</CardDescription>
-							</CardHeader>
-
-							<CardContent className="pt-4">
-								<ul className="space-y-4">
-									{plan.features.map((feature) => (
-										<li
-											key={feature}
-											className="flex items-start gap-3 text-bolt-elements-textSecondary"
-										>
-											<svg
-												className="w-5 h-5 text-green-500 shrink-0 mt-0.5"
-												fill="none"
-												viewBox="0 0 24 24"
-												stroke="currentColor"
-												aria-hidden="true"
-											>
-												<path
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													strokeWidth={2}
-													d="M5 13l4 4L19 7"
-												/>
-											</svg>
-											<span>{feature}</span>
-										</li>
-									))}
-								</ul>
-							</CardContent>
-
-							<CardFooter className="pt-4 pb-8">
-								<Button
-									variant={plan.variant}
-									className={`w-full py-6 ${
-										plan.popular
-											? "bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white border-0"
-											: "border-bolt-elements-borderColor hover:bg-bolt-elements-background-depth-2"
-									}`}
+						<ul className="space-y-4 mb-8">
+							{freeFeatures.map((feature) => (
+								<li
+									key={feature}
+									className="flex items-start gap-3 text-bolt-elements-textSecondary"
 								>
-									{plan.cta}
-								</Button>
-							</CardFooter>
-						</Card>
-					))}
+									<svg
+										className="w-5 h-5 text-green-500 shrink-0 mt-0.5"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+										aria-hidden="true"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth={2}
+											d="M5 13l4 4L19 7"
+										/>
+									</svg>
+									<span>{feature}</span>
+								</li>
+							))}
+						</ul>
+
+						<Button
+							variant="default"
+							className="w-full py-6 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white border-0"
+							asChild
+						>
+							<a
+								href="https://github.com/bazingaedward/nextjs-ai-template"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Get Started
+							</a>
+						</Button>
+					</div>
 				</div>
 
-				{/* Money back guarantee */}
+				{/* Open source note */}
 				<div className="mt-12 text-center">
 					<p className="text-bolt-elements-textSecondary flex items-center justify-center gap-2">
 						<svg
@@ -177,7 +126,7 @@ export function Pricing() {
 								d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
 							/>
 						</svg>
-						7-day money-back guarantee • Cancel anytime
+						开源免费 • MIT License • 社区驱动
 					</p>
 				</div>
 			</div>

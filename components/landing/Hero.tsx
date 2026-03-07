@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { Button } from "~/components/ui/button";
 
 export function Hero() {
@@ -37,7 +36,7 @@ export function Hero() {
 					</p>
 
 					{/* CTA Buttons */}
-					<div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+					<div className="mt-10 flex items-center justify-center">
 						<Button
 							size="lg"
 							className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold px-8 py-6 text-lg"
@@ -59,69 +58,34 @@ export function Hero() {
 								Add to Chrome - It's Free
 							</a>
 						</Button>
-						<Button
-							variant="outline"
-							size="lg"
-							className="w-full sm:w-auto border-bolt-elements-borderColor hover:bg-bolt-elements-background-depth-2 px-8 py-6 text-lg"
-							asChild
-						>
-							<Link href="/login">Sign In to Dashboard</Link>
-						</Button>
 					</div>
 
 					{/* Trust indicators */}
 					<div className="mt-12 flex flex-wrap items-center justify-center gap-8 text-sm text-bolt-elements-textSecondary">
-						<div className="flex items-center gap-2">
-							<svg
-								className="w-5 h-5 text-green-500"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke="currentColor"
-								aria-hidden="true"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth={2}
-									d="M5 13l4 4L19 7"
-								/>
-							</svg>
-							<span>No credit card required</span>
-						</div>
-						<div className="flex items-center gap-2">
-							<svg
-								className="w-5 h-5 text-green-500"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke="currentColor"
-								aria-hidden="true"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth={2}
-									d="M5 13l4 4L19 7"
-								/>
-							</svg>
-							<span>5,000+ active users</span>
-						</div>
-						<div className="flex items-center gap-2">
-							<svg
-								className="w-5 h-5 text-green-500"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke="currentColor"
-								aria-hidden="true"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth={2}
-									d="M5 13l4 4L19 7"
-								/>
-							</svg>
-							<span>Privacy focused</span>
-						</div>
+						{[
+							"10 form fills per month",
+							"1 document upload",
+							"Basic form detection",
+							"Standard support",
+						].map((item) => (
+							<div key={item} className="flex items-center gap-2">
+								<svg
+									className="w-5 h-5 text-green-500"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									aria-hidden="true"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth={2}
+										d="M5 13l4 4L19 7"
+									/>
+								</svg>
+								<span>{item}</span>
+							</div>
+						))}
 					</div>
 				</div>
 

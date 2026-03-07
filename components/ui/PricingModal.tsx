@@ -50,7 +50,7 @@ const pricingTiers: PricingTier[] = [
 	{
 		name: "Team",
 		price: "Custom",
-		description: "Perfect for teams and organizations",
+		description: "Perfect for power users and professionals",
 		features: [
 			"Everything in Pro",
 			"Team collaboration",
@@ -59,7 +59,7 @@ const pricingTiers: PricingTier[] = [
 			"Dedicated support",
 			"Custom integrations",
 		],
-		buttonText: "Contact Sales",
+		buttonText: "Contact Me",
 	},
 ];
 

@@ -23,18 +23,18 @@ export default function PrivacyPolicyPage() {
 				<p className="text-bolt-elements-textSecondary mb-8">
 					Last updated: January 18, 2026
 				</p>
-
+  
 				<div className="prose prose-invert max-w-none space-y-8">
 					<section>
 						<h2 className="text-2xl font-semibold text-white mb-4">
 							1. Introduction
 						</h2>
 						<p className="text-bolt-elements-textSecondary leading-relaxed">
-							Welcome to Sharkbook AI Form Filler ("we," "our," or "us"). We are
+							Welcome to Sharkbook AI Form Filler ("I," "my," or "me"). I am
 							committed to protecting your privacy and ensuring the security of
-							your personal information. This Privacy Policy explains how we
+							your personal information. This Privacy Policy explains how I
 							collect, use, disclose, and safeguard your information when you
-							use our Chrome extension and related services.
+							use my Chrome extension and related services.
 						</p>
 					</section>
 
@@ -68,7 +68,7 @@ export default function PrivacyPolicyPage() {
 							3. How We Use Your Information
 						</h2>
 						<p className="text-bolt-elements-textSecondary leading-relaxed mb-4">
-							We use the collected information for the following purposes:
+							I use the collected information for the following purposes:
 						</p>
 						<ul className="list-disc list-inside text-bolt-elements-textSecondary space-y-2">
 							<li>
@@ -87,9 +87,9 @@ export default function PrivacyPolicyPage() {
 							4. Data Storage and Security
 						</h2>
 						<p className="text-bolt-elements-textSecondary leading-relaxed">
-							We implement industry-standard security measures to protect your
+							I implement industry-standard security measures to protect your
 							data. Your information is stored on secure servers with
-							encryption. We use Supabase for authentication and data storage,
+							encryption. I use Supabase for authentication and data storage,
 							which provides enterprise-grade security. Uploaded documents are
 							processed temporarily and are not stored permanently unless you
 							explicitly save them.
@@ -101,10 +101,10 @@ export default function PrivacyPolicyPage() {
 							5. AI Processing
 						</h2>
 						<p className="text-bolt-elements-textSecondary leading-relaxed">
-							Our extension uses AI technology to analyze documents and
-							auto-fill forms. Document content is processed through our AI
-							systems to extract relevant information. We do not use your
-							personal documents to train our AI models without explicit
+							The extension uses AI technology to analyze documents and
+							auto-fill forms. Document content is processed through the AI
+							systems to extract relevant information. I do not use your
+							personal documents to train AI models without explicit
 							consent. AI processing is performed securely with data encryption
 							in transit.
 						</p>
@@ -115,7 +115,7 @@ export default function PrivacyPolicyPage() {
 							6. Third-Party Services
 						</h2>
 						<p className="text-bolt-elements-textSecondary leading-relaxed mb-4">
-							We work with trusted third-party services:
+							I work with trusted third-party services:
 						</p>
 						<ul className="list-disc list-inside text-bolt-elements-textSecondary space-y-2">
 							<li>
@@ -156,8 +156,8 @@ export default function PrivacyPolicyPage() {
 							8. Cookies and Tracking
 						</h2>
 						<p className="text-bolt-elements-textSecondary leading-relaxed">
-							We use essential cookies to maintain your session and preferences.
-							Analytics cookies help us understand how you use our service. You
+							I use essential cookies to maintain your session and preferences.
+							Analytics cookies help me understand how you use the service. You
 							can manage cookie preferences through your browser settings.
 						</p>
 					</section>
@@ -167,7 +167,7 @@ export default function PrivacyPolicyPage() {
 							9. Children's Privacy
 						</h2>
 						<p className="text-bolt-elements-textSecondary leading-relaxed">
-							Our service is not intended for children under 13 years of age. We
+							This service is not intended for children under 13 years of age. I
 							do not knowingly collect personal information from children under
 							13.
 						</p>
@@ -178,7 +178,7 @@ export default function PrivacyPolicyPage() {
 							10. Changes to This Policy
 						</h2>
 						<p className="text-bolt-elements-textSecondary leading-relaxed">
-							We may update this Privacy Policy from time to time. We will
+							I may update this Privacy Policy from time to time. I will
 							notify you of any changes by posting the new Privacy Policy on
 							this page and updating the "Last updated" date.
 						</p>
@@ -190,11 +190,11 @@ export default function PrivacyPolicyPage() {
 						</h2>
 						<p className="text-bolt-elements-textSecondary leading-relaxed">
 							If you have any questions about this Privacy Policy, please
-							contact us at:
+							contact me at:
 						</p>
 						<p className="text-bolt-elements-textSecondary mt-4">
 							<strong className="text-white">Email:</strong>{" "}
-							privacy@sharkbook.org
+							bazingaedward@gmail.com
 							<br />
 							<strong className="text-white">Website:</strong>{" "}
 							<Link href="/" className="text-blue-400 hover:underline">

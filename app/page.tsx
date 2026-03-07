@@ -1,12 +1,6 @@
 "use client";
 
-import {
-	Hero,
-	Features,
-	HowItWorks,
-	Pricing,
-	Footer,
-} from "~/components/landing";
+import { Hero, Features, HowItWorks, Footer } from "~/components/landing";
 import { LandingHeader } from "~/components/header/LandingHeader";
 
 export default function Page() {
@@ -17,7 +11,6 @@ export default function Page() {
 				<Hero />
 				<Features />
 				<HowItWorks />
-				<Pricing />
 			</main>
 			<Footer />
 		</div>
